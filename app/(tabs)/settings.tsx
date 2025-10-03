@@ -9,8 +9,9 @@ import { router } from 'expo-router';
 export default function settings() {
   return (
     <GestureHandlerRootView>
-      <SafeAreaView className="flex-1 items-center justify-center gap-4 bg-[#190D05] p-2">
-        <View className="flex w-full flex-row items-center justify-start gap-2 rounded-full bg-[#FCF5E5]/[0.2] p-2">
+      <SafeAreaView className="flex-1 items-center justify-center gap-4 bg-[#FFF] p-2" edges={["top","left","right"]}>
+      
+        <View className="flex w-full flex-row items-center justify-start gap-2 rounded-full bg-[#F6D3D3]/[0.6] p-2">
           <Image
             source={require('../../assets/images/icon.png')}
             alt="Profile photo"
@@ -19,13 +20,13 @@ export default function settings() {
             className="h-20 w-20 rounded-full  object-cover"
           />
           <View>
-            <Text className="text-3xl font-bold text-white">Aditya John</Text>
-            <Text className="text-md text-white/[0.2]">Your Account</Text>
+            <Text className="text-3xl font-bold text-black/[0.8]">Aditya John</Text>
+            <Text className="text-md text-black/[0.6]">useremail@gmail.com</Text>
           </View>
         </View>
 
         <ScrollView decelerationRate={'fast'} className="w-full flex-1">
-          <View className="overflow-hidden rounded-3xl bg-[#FCF5E5]/[0.2]">
+          <View className="overflow-hidden rounded-3xl bg-[#F6D3D3]/[0.4]">
             {settingsData.General.map((prod) => (
               <TouchableOpacity
                 key={prod.id}
@@ -40,16 +41,16 @@ export default function settings() {
                       width={30}
                       className="h-10 w-10 rounded-xl object-cover"
                     />
-                    <Text className="text-lg capitalize text-white">{prod.name}</Text>
+                    <Text className="text-lg capitalize text-black/[0.6]">{prod.name}</Text>
                   </View>
-                  <Ionicons name="chevron-forward-outline" color="#FFFFFF6a" size={20} />
+                  <Ionicons name="chevron-forward-outline" color="#0000004a" size={20} />
                 </View>
-                <View className="h-0 w-full border border-white/[0.1]" />
+                <View className="h-0 w-full border border-black/[0.1]" />
               </TouchableOpacity>
             ))}
           </View>
 
-          <View className="mt-4 overflow-hidden rounded-3xl bg-[#FCF5E5]/[0.2]">
+          <View className="mt-4 overflow-hidden rounded-3xl bg-[#F6D3D3]/[0.4]">
             {settingsData.Account.map((prod) => (
               <TouchableOpacity
                 key={prod.id}
@@ -64,11 +65,11 @@ export default function settings() {
                       width={30}
                       className="h-10 w-10 rounded-xl object-cover"
                     />
-                    <Text className="text-lg capitalize text-white">{prod.name}</Text>
+                    <Text className="text-lg capitalize text-black/[0.6]">{prod.name}</Text>
                   </View>
-                  <Ionicons name="chevron-forward-outline" color="#FFFFFF6a" size={20} />
+                  <Ionicons name="chevron-forward-outline" color="#0000004a" size={20} />
                 </View>
-                <View className="h-0 w-full border border-white/[0.1]" />
+                <View className="h-0 w-full border border-black/[0.1]" />
               </TouchableOpacity>
             ))}
           </View>

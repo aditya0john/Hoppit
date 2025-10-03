@@ -9,8 +9,8 @@ export const categories = [
     image: require('../assets/images/categories/Vegetables.jpg'),
   },
   { id: 'dairy', name: 'Dairy', image: require('../assets/images/categories/Dairy.png') },
-  { id: 'snacks', name: 'Snacks', image: require('../assets/images/categories/Snacks.jpeg') },
-  { id: 'chips', name: 'Chips', image: require('../assets/images/categories/Chips.jpg') },
+  { id: 'Namkeen', name: 'Namkeen', image: require('../assets/images/categories/Snacks.jpeg') },
+  { id: 'Snacks', name: 'Snacks', image: require('../assets/images/categories/Chips.jpg') },
   { id: 'sweets', name: 'Sweets', image: require('../assets/images/categories/Sweets.png') },
   {
     id: 'beverages',
