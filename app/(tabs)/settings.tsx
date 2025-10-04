@@ -9,8 +9,8 @@ import { router } from 'expo-router';
 export default function settings() {
   return (
     <GestureHandlerRootView>
-      <SafeAreaView className="flex-1 items-center justify-center gap-4 bg-[#FFF] p-2" edges={["top","left","right"]}>
-      
+      <SafeAreaView className="flex-1 items-center justify-center gap-4 bg-[#FFF] p-2" edges={["top", "left", "right"]}>
+
         <View className="flex w-full flex-row items-center justify-start gap-2 rounded-full bg-[#F6D3D3]/[0.6] p-2">
           <Image
             source={require('../../assets/images/icon.png')}

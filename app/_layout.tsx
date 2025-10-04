@@ -1,7 +1,6 @@
 import { Tabs } from 'expo-router';
 import '../global.css';
 import { Ionicons } from '@expo/vector-icons';
-import { StatusBar } from 'react-native';
 
 export default function RootLayout() {
   return (
@@ -9,8 +8,9 @@ export default function RootLayout() {
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: 'red',
+        tabBarInactiveTintColor:"#6E6E6E8a",
         tabBarIconStyle: { color: '#190D05' },
-        tabBarStyle: { backgroundColor: '#FCF5E5', borderTopWidth: 0, maxHeight: 70 },
+        tabBarStyle: { backgroundColor: '#F6D3D3', borderTopWidth: 0, maxHeight: 70 },
       }}>
       <Tabs.Screen
         name="index"
@@ -47,7 +47,6 @@ export default function RootLayout() {
           ),
         }}
       />
-      <StatusBar backgroundColor="#C4FFA5" barStyle={"dark-content"} />
     </Tabs>
   );
 }

@@ -5,7 +5,7 @@ import { products, stores } from '@/lib/data';
 import { StoreItem } from '@/lib/schema';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
-import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -18,31 +18,47 @@ export default function Index() {
 
   return (
     <GestureHandlerRootView>
-      <SafeAreaView className="flex-1 bg-[#FFF] p-2" edges={["top","left","right"]}>
-        <View className='flex-row justify-between items-center p-2'>
-           <View>
-              <View style={{alignItems:"flex-end"}} className='flex-row relative'>
-               <Image source={require("../assets/images/LOGO.png")} alt='Hoppit Points' height={20} width={40} resizeMode="contain" className='h-20 w-20'/>
-                <Text className='text-xs text-red-500/[0.8] p-1 absolute right-8 bottom-1'>in <Text className='text-lg'>7</Text> mins</Text>
-              </View>
-                <Text className='text-xs text-black/[0.6] -mt-2'>Bas ek Hop, aur ghar pe Drop!</Text>
-           </View>
+      <SafeAreaView className="flex-1 bg-[#FFF] p-2" edges={["top", "left", "right"]}>
+        <View className='flex-row justify-between items-end p-2'>
+          <View className='flex-row'>
+            <Image source={require("../assets/images/LOGO2.png")} alt='Hoppit Points' height={20} width={40} resizeMode="contain" className='h-20 w-20' />
 
-          <View className='flex-row items-center bg-[#F6D3D3]/[0.2] p-1 rounded-lg'>
-               <Image source={require("../assets/images/HP.png")} alt='Hoppit Points' height={20} width={40} resizeMode='contain' className='h-12 w-12'/>
-              <Text className='text-red-500 font-mono text-3xl font-extrabold'>20</Text>
+            <View className='flex-col items-start justify-end mb-2'>
+              <View className='flex-row items-end'>
+                <Text className='text-3xl text-[#FFBD00] font-bold'>Hoppit</Text>
+                <Text className='text-xs text-yellow-500 font-bold p-1'>in <Text className='text-lg text-[#6E6E6E]'>7</Text> mins</Text>
+              </View>
+
+              <Text className='text-xs text-[#6E6E6E]'>Bas ek Hop, aur ghar pe Drop!</Text>
+            </View>
+          </View>
+
+          <View className='flex-row items-center'>
+            <Image source={require("../assets/images/HP.png")} alt='Hoppit Points' height={20} width={40} resizeMode='contain' className='h-12 w-12' />
+            <Text className='text-red-500 font-mono text-3xl font-extrabold bg-[#F6D3D3]/[0.6] p-1 rounded-lg -ml-1'>20</Text>
           </View>
         </View>
 
-     
+
         <ScrollView>
-          <View className='flex-row items-center justify-start'>
-            <Image source={require("../assets/images/location.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-8 w-8'/>
-            <Text className='text-black/[0.8] font-sans text-lg'>Meeting point, aa gya bas mein</Text>
+          <View className='flex-row items-center gap-2 mt-2'>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              className='bg-[#F6D3D3]/[0.6] py-1 rounded-lg flex-row items-center justify-start'>
+              <Image source={require("../assets/images/location.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-10 w-10' />
+              <View className='flex-row items-center'>
+                <View>
+                  <Text className='text-red-400 font-bold text-lg capitalize'>Meeting point</Text>
+                  <Text className='text-[#6E6E6E]/[0.8] font-sans text-xs -mt-1'>andheri gali, shaitaan moholla</Text>
+                </View>
+                <Ionicons name='chevron-down' size={14} color={"black"} className='p-1' />
+              </View>
+            </TouchableOpacity>
+
+            <SearchBar />
           </View>
 
-          <SearchBar/>
-          <CategoryCarousel/>
+          <CategoryCarousel />
 
           {wishList && (
             <View className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-[#FCF5E5]/[0.2]">
@@ -70,12 +86,12 @@ export default function Index() {
             </View>
           )}
 
-         
-          <FoodItem products={products.fruits} category='Fruits'/>
-          <FoodItem products={products.vegetables} category='Vegetables'/>
+          <FoodItem products={products.fruits} category='Fruits' />
+          <FoodItem products={products.vegetables} category='Vegetables' />
         </ScrollView>
       </SafeAreaView>
 
+      <StatusBar backgroundColor="#C4FFA5" barStyle={"dark-content"} />
     </GestureHandlerRootView>
   );
 }

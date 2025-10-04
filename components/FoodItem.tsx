@@ -13,10 +13,10 @@ function FoodItem({products, category}: {products : StoreItem[], category : stri
   return (
     <View className="flex items-center justify-center">
       <View className="mt-2 w-full rounded-xl">
-        <View className="flex-row justify-between items-center">
-          <View className='w-[36%] h-0 border border-black/[0.4]'/>
-          <Text className="text-lg font-semibold text-black/[0.6]">{category}</Text>
-          <View className='w-[36%] h-0 border border-black/[0.4]'/>          
+        <View className="flex-row justify-around items-center">
+          <View className='w-[36%] h-0 border border-black/[0.2]'/>
+          <Text className="text-md font-semibold text-black/[0.6] uppercase">{category}</Text>
+          <View className='w-[36%] h-0 border border-black/[0.2]'/>          
         </View>
         <View
           style={{
@@ -30,7 +30,7 @@ function FoodItem({products, category}: {products : StoreItem[], category : stri
               <TouchableOpacity
                 activeOpacity={0.8}
                 style={{ width: itemWidth, margin: 2 }}
-                className="h-36 items-center rounded-xl bg-[#F6D3D3]/[0.2]">
+                className="h-36 items-center rounded-xl bg-[#F6D3D3]/[0.4]">
               <Image source={require("../assets/images/categories/Chips.jpg")}
                 alt="product image"
                 height={20}
@@ -38,6 +38,7 @@ function FoodItem({products, category}: {products : StoreItem[], category : stri
                 resizeMode='cover'
                 className='h-20 w-full rounded-t-xl'/>
               <Text className="text-lg font-bold capitalize text-black/[0.6]">{data.name}</Text>
+              <Text className="text-xs font-bold capitalize text-yellow-600">{data.price}</Text>
               <View className='flex-row items-center'>
                 <Ionicons name='time-outline' color={"red"} size={12}/>
                 <Text className="text-xs font-bold capitalize text-black/[0.6]">{data.time}</Text>

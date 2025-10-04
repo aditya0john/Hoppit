@@ -149,13 +149,11 @@ export const settingsData: { General: SettingItem[]; Account: SettingItem[] } = 
   General: [
     { id: 'General', name: 'General', image: '/', href: '/general' },
     { id: 'Orders', name: 'Orders', image: '/', href: '/orders' },
-    { id: 'Privacy', name: 'Privacy', image: '/', href: '/privacy' },
     { id: 'Login & Password', name: 'Login & Password', image: '/', href: '/auth' },
   ],
 
   Account: [
     { id: 'Complaints', name: 'Complaints', image: '/', href: '/complaints' },
-    { id: 'Advertisements', name: 'Advertisements', image: '/', href: '/ads' },
     {
       id: 'Delete & Deactivate Account',
       name: 'Delete & Deactivate Account',

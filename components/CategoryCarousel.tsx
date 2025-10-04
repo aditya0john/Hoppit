@@ -26,7 +26,7 @@ function CategoryCarousel() {
                     alt="Category image"
                     height={40}
                     width={40}
-                    className="h-20 w-20 rounded-full bg-[#F6D3D3]/[0.2] object-cover"
+                    className="h-20 w-20 rounded-full bg-[#F6D3D3]/[0.4] object-cover"
                     resizeMode="cover"
                     />
                     <Text className="mt-2 text-center text-xs font-bold text-black/[0.6]">
