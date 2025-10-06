@@ -10,17 +10,16 @@ export default function settings() {
   return (
     <GestureHandlerRootView>
       <SafeAreaView className="flex-1 items-center justify-center gap-4 bg-[#FFF] p-2" edges={["top", "left", "right"]}>
-
         <View className="flex w-full flex-row items-center justify-start gap-2 rounded-full bg-[#F6D3D3]/[0.6] p-2">
           <Image
             source={require('../../assets/images/icon.png')}
             alt="Profile photo"
             height={80}
             width={80}
-            className="h-20 w-20 rounded-full  object-cover"
+            className="h-20 w-20 rounded-full object-cover"
           />
           <View>
-            <Text className="text-3xl font-bold text-black/[0.8]">Aditya John</Text>
+            <Text className="text-3xl font-bold text-red-500/[0.8]">Aditya John</Text>
             <Text className="text-md text-black/[0.6]">useremail@gmail.com</Text>
           </View>
         </View>

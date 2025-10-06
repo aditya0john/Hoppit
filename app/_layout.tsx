@@ -8,9 +8,9 @@ export default function RootLayout() {
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: 'red',
-        tabBarInactiveTintColor:"#6E6E6E8a",
+        tabBarInactiveTintColor: "#6E6E6E8a",
         tabBarIconStyle: { color: '#190D05' },
-        tabBarStyle: { backgroundColor: '#F6D3D3', borderTopWidth: 0, maxHeight: 70 },
+        tabBarStyle: { backgroundColor: '#F6D3D34a', borderTopWidth: 0, maxHeight: 70 },
       }}>
       <Tabs.Screen
         name="index"
@@ -45,6 +45,20 @@ export default function RootLayout() {
               color={color}
             />
           ),
+        }}
+      />
+      <Tabs.Screen
+        name="Delivery"
+        options={{
+          href: null
+        }}
+      />
+      <Tabs.Screen
+        name="CategoryPage/[Category]"
+        options={{
+          title: "Categories",
+          href: null,
+          headerShown: true,
         }}
       />
     </Tabs>

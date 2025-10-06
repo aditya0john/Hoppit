@@ -4,6 +4,7 @@ import SearchBar from '@/components/SearchBar';
 import { products, stores } from '@/lib/data';
 import { StoreItem } from '@/lib/schema';
 import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 import { useState } from 'react';
 import { Dimensions, Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
@@ -26,16 +27,20 @@ export default function Index() {
             <View className='flex-col items-start justify-end mb-2'>
               <View className='flex-row items-end'>
                 <Text className='text-3xl text-[#FFBD00] font-bold'>Hoppit</Text>
-                <Text className='text-xs text-yellow-500 font-bold p-1'>in <Text className='text-lg text-[#6E6E6E]'>7</Text> mins</Text>
+                <Text className='text-xs text-yellow-500 font-bold p-1'>in <Text className='text-lg text-red-500'>7</Text> mins</Text>
               </View>
 
               <Text className='text-xs text-[#6E6E6E]'>Bas ek Hop, aur ghar pe Drop!</Text>
             </View>
           </View>
 
-          <View className='flex-row items-center'>
-            <Image source={require("../assets/images/HP.png")} alt='Hoppit Points' height={20} width={40} resizeMode='contain' className='h-12 w-12' />
-            <Text className='text-red-500 font-mono text-3xl font-extrabold bg-[#F6D3D3]/[0.6] p-1 rounded-lg -ml-1'>20</Text>
+          <View className='items-end'>
+            <View className='flex-row items-center'>
+              <Image source={require("../assets/images/HP.png")} alt='Hoppit Points' height={20} width={40} resizeMode='contain' className='h-12 w-12' />
+              <Text className='text-red-500 font-mono text-3xl font-extrabold bg-[#F6D3D3]/[0.6] p-1 rounded-lg -ml-1'>20</Text>
+            </View>
+            <Text className='text-[#6E6E6E] text-md -ml-1'>HopCoins</Text>
+
           </View>
         </View>
 
@@ -88,6 +93,25 @@ export default function Index() {
 
           <FoodItem products={products.fruits} category='Fruits' />
           <FoodItem products={products.vegetables} category='Vegetables' />
+
+          <View style={{ position: "sticky", bottom: 4 }} className='items-center justify-center'>
+            <TouchableOpacity
+              onPress={() => router.push("/Delivery")}
+              activeOpacity={0.6}
+              style={{ width: "70%" }}
+              className='flex-row items-center justify-center gap-2 bg-neutral-200/[0.6] p-2 rounded-2xl'>
+              <Image source={require("../assets/images/categories/Snacks.jpeg")} alt='Location' height={20} width={40} resizeMode="contain" className='h-10 w-10 rounded-full bg-black/[0.2]' />
+              <View className='flex-row justify-between items-center w-[80%]'>
+                <View>
+                  <Text className='text-black/[0.4] font-bold text-xs'>Order ID : 900273ASDJNH68</Text>
+                  <Text className='text-red-400 font-bold text-md capitalize w-full'>Snacks from Hoppit</Text>
+                </View>
+                <View className='flex-row gap-4'>
+                  <Text className='text-black/[0.4] font-bold text-md'>+2</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </SafeAreaView>
 
