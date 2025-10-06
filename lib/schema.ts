@@ -20,6 +20,6 @@ export interface StoreItem {
   href: string;
   rating: number;
   time: string;
-  price: string;
+  price: number;
   tags: string[];
 }

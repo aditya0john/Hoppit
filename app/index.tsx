@@ -1,8 +1,11 @@
 import CategoryCarousel from '@/components/CategoryCarousel';
 import FoodItem from '@/components/FoodItem';
 import SearchBar from '@/components/SearchBar';
+import WishListItem from '@/components/WishListItem';
 import { products, stores } from '@/lib/data';
 import { StoreItem } from '@/lib/schema';
+import { useCartStore } from '@/store/useCartStore';
+import { useWishList } from '@/store/useWishList';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useState } from 'react';
@@ -15,7 +18,8 @@ export default function Index() {
   const numColumns = 4;
   const itemSpacing = 10;
   const itemWidth = (screenWidth - (numColumns + 1) * itemSpacing) / numColumns;
-  const [wishList, setWishList] = useState<StoreItem>(); //send this to zustand
+  const { wishList, removeFav } = useWishList(); //send this to zustand
+  const { addItem } = useCartStore();
 
   return (
     <GestureHandlerRootView>
@@ -37,9 +41,11 @@ export default function Index() {
           <View className='items-end'>
             <View className='flex-row items-center'>
               <Image source={require("../assets/images/HP.png")} alt='Hoppit Points' height={20} width={40} resizeMode='contain' className='h-12 w-12' />
-              <Text className='text-red-500 font-mono text-3xl font-extrabold bg-[#F6D3D3]/[0.6] p-1 rounded-lg -ml-1'>20</Text>
+              <View className='bg-[#F6D3D3]/[0.6] p-1 rounded-lg -ml-1 items-center'>
+                <Text className='text-red-500 text-3xl font-mono text font-extrabold'>20</Text>
+                <Text className='text-[#6E6E6E] text-xs'>HopCoins</Text>
+              </View>
             </View>
-            <Text className='text-[#6E6E6E] text-md -ml-1'>HopCoins</Text>
 
           </View>
         </View>
@@ -65,31 +71,7 @@ export default function Index() {
 
           <CategoryCarousel />
 
-          {wishList && (
-            <View className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-[#FCF5E5]/[0.2]">
-              <View className="w-full flex-row items-center justify-between rounded-xl bg-[#FCF5E5]/[0.2] p-2">
-                <Text className="text-lg font-semibold text-white">Wish List</Text>
-                <Ionicons name="chevron-forward-outline" color="#FFFFFF6a" size={20} />
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                  padding: itemSpacing,
-                  justifyContent: 'flex-start',
-                }}>
-                {stores.map((data) => (
-                  <TouchableOpacity
-                    key={data.id}
-                    activeOpacity={0.8}
-                    style={{ width: itemWidth, margin: 2 }}
-                    className="h-24 items-center justify-center rounded-xl bg-[#FCF5E5] p-2">
-                    <Text className="text-xs font-bold text-[#190D05]">{data.name}</Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            </View>
-          )}
+          {wishList.length > 0 && <WishListItem category='wishlist' products={wishList} />}
 
           <FoodItem products={products.fruits} category='Fruits' />
           <FoodItem products={products.vegetables} category='Vegetables' />

@@ -5,14 +5,14 @@ import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { View, Text, TouchableOpacity, Dimensions, Image } from 'react-native';
 
-export default function FoodItem({ products, category }: { products: StoreItem[], category: string }) {
+export default function WishListItem({ products, category }: { products: StoreItem[], category: string }) {
   const screenWidth = Dimensions.get('window').width;
   const numColumns = 3;
   const itemSpacing = 10;
   const itemWidth = (screenWidth - (numColumns + 1) * itemSpacing) / numColumns;
 
   let { addItem } = useCartStore();
-  let { addFav } = useWishList();
+  let { removeFav } = useWishList();
 
   return (
     <View className="flex items-center justify-center">
@@ -31,8 +31,8 @@ export default function FoodItem({ products, category }: { products: StoreItem[]
           }}>
           {products.map((data) => (
             <View key={data.id} className="flex flex-col items-center justify-center relative">
-              <TouchableOpacity onPress={() => addFav(data)} className='absolute top-1 right-1 z-50'>
-                <Ionicons name='heart-outline' size={20} color={"red"} />
+              <TouchableOpacity onPress={() => removeFav(data.name)} className='absolute top-1 right-1 z-50'>
+                <Ionicons name='heart' size={20} color={"red"} />
               </TouchableOpacity>
               <View
                 style={{ width: itemWidth, margin: 2 }}

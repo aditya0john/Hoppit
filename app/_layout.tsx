@@ -35,6 +35,20 @@ export default function RootLayout() {
         }}
       />
       <Tabs.Screen
+        name="Cart/Cart"
+        options={{
+          title: "Cart",
+          headerShown: false,
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons
+              name={`${focused ? 'cart' : 'cart-outline'}`}
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="(tabs)/settings"
         options={{
           title: 'Profile',
@@ -50,7 +64,8 @@ export default function RootLayout() {
       <Tabs.Screen
         name="Delivery"
         options={{
-          href: null
+          href: null,
+          headerShown:false
         }}
       />
       <Tabs.Screen
@@ -58,9 +73,10 @@ export default function RootLayout() {
         options={{
           title: "Categories",
           href: null,
-          headerShown: true,
+          headerShown: false,
         }}
       />
+
     </Tabs>
   );
 }

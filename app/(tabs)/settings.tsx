@@ -10,7 +10,7 @@ export default function settings() {
   return (
     <GestureHandlerRootView>
       <SafeAreaView className="flex-1 items-center justify-center gap-4 bg-[#FFF] p-2" edges={["top", "left", "right"]}>
-        <View className="flex w-full flex-row items-center justify-start gap-2 rounded-full bg-[#F6D3D3]/[0.6] p-2">
+        <View className="flex w-full flex-row items-center justify-start gap-2 bg-neutral-300 rounded-full p-2">
           <Image
             source={require('../../assets/images/icon.png')}
             alt="Profile photo"
@@ -19,13 +19,13 @@ export default function settings() {
             className="h-20 w-20 rounded-full object-cover"
           />
           <View>
-            <Text className="text-3xl font-bold text-red-500/[0.8]">Aditya John</Text>
+            <Text className="text-3xl font-bold text-black/[0.6]">Aditya John</Text>
             <Text className="text-md text-black/[0.6]">useremail@gmail.com</Text>
           </View>
         </View>
 
         <ScrollView decelerationRate={'fast'} className="w-full flex-1">
-          <View className="overflow-hidden rounded-3xl bg-[#F6D3D3]/[0.4]">
+          <View className="overflow-hidden bg-neutral-200/[0.6] rounded-3xl">
             {settingsData.General.map((prod) => (
               <TouchableOpacity
                 key={prod.id}
@@ -49,7 +49,7 @@ export default function settings() {
             ))}
           </View>
 
-          <View className="mt-4 overflow-hidden rounded-3xl bg-[#F6D3D3]/[0.4]">
+          <View className="mt-4 overflow-hidden bg-neutral-200/[0.6] rounded-3xl">
             {settingsData.Account.map((prod) => (
               <TouchableOpacity
                 key={prod.id}

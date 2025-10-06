@@ -1,7 +1,7 @@
 import { CategorySchema, SettingItem, StoreItem } from './schema';
 
 // categories.js
-export const categories : CategorySchema[] = [
+export const categories: CategorySchema[] = [
   { id: 'fruits', name: 'Fruits', image: require('../assets/images/categories/Fruits.png') },
   {
     id: 'vegetables',
@@ -65,7 +65,7 @@ export const products: Record<string, StoreItem[]> = {
       href: '/',
       rating: 4.5,
       time: '10-15 min',
-      price: '$2.00',
+      price: 2.00,
       tags: ['fresh', 'organic'],
     },
     {
@@ -75,7 +75,7 @@ export const products: Record<string, StoreItem[]> = {
       image: '/',
       rating: 4.0,
       time: '10-15 min',
-      price: '$1.00',
+      price: 1.00,
       tags: ['fresh'],
     },
     {
@@ -85,7 +85,7 @@ export const products: Record<string, StoreItem[]> = {
       image: '/',
       rating: 4.8,
       time: '10-15 min',
-      price: '$3.00',
+      price: 3.00,
       tags: ['fresh', 'seasonal'],
     },
     {
@@ -95,7 +95,7 @@ export const products: Record<string, StoreItem[]> = {
       image: '/',
       rating: 4.3,
       time: '10-15 min',
-      price: '$2.50',
+      price: 2.50,
       tags: ['fresh'],
     },
     {
@@ -105,7 +105,7 @@ export const products: Record<string, StoreItem[]> = {
       image: '/',
       rating: 4.6,
       time: '10-15 min',
-      price: '$2.20',
+      price: 2.20,
       tags: ['fresh', 'exotic'],
     },
     {
@@ -115,7 +115,7 @@ export const products: Record<string, StoreItem[]> = {
       image: '/',
       rating: 4.4,
       time: '10-15 min',
-      price: '$1.80',
+      price: 1.80,
       tags: ['fresh'],
     },
   ],
@@ -123,7 +123,7 @@ export const products: Record<string, StoreItem[]> = {
     {
       id: 'carrot',
       name: 'Carrot',
-      price: 'Rs 60',
+      price: 60,
       image: '/',
       href: '/',
       rating: 4.5,
@@ -133,7 +133,7 @@ export const products: Record<string, StoreItem[]> = {
     {
       id: 'potato',
       name: 'Potato',
-      price: 'Rs 30',
+      price: 30,
       image: '/',
       href: '/',
       rating: 4.0,
@@ -143,7 +143,7 @@ export const products: Record<string, StoreItem[]> = {
     {
       id: 'broccoli',
       name: 'Broccoli',
-      price: 'Rs 90',
+      price: 90,
       image: '/',
       href: '/',
       rating: 4.8,
@@ -153,7 +153,7 @@ export const products: Record<string, StoreItem[]> = {
     {
       id: 'spinach',
       name: 'Spinach',
-      price: 'Rs 40',
+      price: 40,
       image: '/',
       href: '/',
       rating: 4.3,
@@ -163,7 +163,7 @@ export const products: Record<string, StoreItem[]> = {
     {
       id: 'cabbage',
       name: 'Cabbage',
-      price: 'Rs 50',
+      price: 50,
       image: '/',
       href: '/',
       rating: 4.6,
