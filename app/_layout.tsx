@@ -1,6 +1,7 @@
-import { Tabs } from 'expo-router';
-import '../global.css';
 import { Ionicons } from '@expo/vector-icons';
+import { router, Tabs } from 'expo-router';
+import { TouchableOpacity } from 'react-native';
+import '../global.css';
 
 export default function RootLayout() {
   return (
@@ -25,6 +26,7 @@ export default function RootLayout() {
         name="(tabs)/Restaurant"
         options={{
           title: 'Restaurant',
+          href: null,
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons
               name={`${focused ? 'restaurant' : 'restaurant-outline'}`}
@@ -35,10 +37,20 @@ export default function RootLayout() {
         }}
       />
       <Tabs.Screen
-        name="Cart/Cart"
+        name="Cart"
         options={{
           title: "Cart",
-          headerShown: false,
+          headerTitleStyle: { color: "gray", fontSize: 24 },
+          headerStyle: { backgroundColor: "white", height: 100 },
+          headerShown: true,
+          headerTitle: () => (
+            <Ionicons
+              className='w-full'
+              name='cart-outline'
+              size={40}
+              color={"gray"}
+            />
+          ),
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons
               name={`${focused ? 'cart' : 'cart-outline'}`}
@@ -48,6 +60,7 @@ export default function RootLayout() {
           ),
         }}
       />
+
       <Tabs.Screen
         name="(tabs)/settings"
         options={{
@@ -64,8 +77,33 @@ export default function RootLayout() {
       <Tabs.Screen
         name="Delivery"
         options={{
+          headerStyle: { backgroundColor: "white", height: 100 },
           href: null,
-          headerShown:false
+          headerShown: true,
+          headerLeft: () => (<TouchableOpacity className='px-2' onPress={() => router.push("/")}><Ionicons name='chevron-back' size={20} color={"gray"} /></TouchableOpacity>),
+          headerTitle: () => (
+            <Ionicons
+              name='bicycle'
+              size={40}
+              color={"gray"}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="Checkout"
+        options={{
+          headerStyle: { backgroundColor: "white", height: 100 },
+          href: null,
+          headerShown: true,
+          headerLeft: () => (<TouchableOpacity className='px-2' onPress={() => router.push("/Cart")}><Ionicons name='chevron-back' size={20} color={"gray"} /></TouchableOpacity>),
+          headerTitle: () => (
+            <Ionicons
+              name='card-outline'
+              size={40}
+              color={"gray"}
+            />
+          ),
         }}
       />
       <Tabs.Screen
@@ -76,7 +114,6 @@ export default function RootLayout() {
           headerShown: false,
         }}
       />
-
     </Tabs>
   );
 }

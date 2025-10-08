@@ -10,8 +10,7 @@ export default function SearchBar() {
         placeholder="Hoppit se Drop it tak..."
         style={{height: 42}}
         className="rounded-xl bg-[#F6D3D3]/[0.6] pl-7 text-black text-xs w-full"
-        placeholderTextColor={'#0000006a'}
-        />
+        placeholderTextColor={'#0000006a'}/>
         <Ionicons
         name="search"
         size={16}

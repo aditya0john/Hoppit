@@ -2,22 +2,16 @@ import CategoryCarousel from '@/components/CategoryCarousel';
 import FoodItem from '@/components/FoodItem';
 import SearchBar from '@/components/SearchBar';
 import WishListItem from '@/components/WishListItem';
-import { products, stores } from '@/lib/data';
-import { StoreItem } from '@/lib/schema';
+import { products } from '@/lib/data';
 import { useCartStore } from '@/store/useCartStore';
 import { useWishList } from '@/store/useWishList';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { useState } from 'react';
-import { Dimensions, Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Index() {
-  const screenWidth = Dimensions.get('window').width;
-  const numColumns = 4;
-  const itemSpacing = 10;
-  const itemWidth = (screenWidth - (numColumns + 1) * itemSpacing) / numColumns;
   const { wishList, removeFav } = useWishList(); //send this to zustand
   const { addItem } = useCartStore();
 
@@ -82,7 +76,7 @@ export default function Index() {
               activeOpacity={0.6}
               style={{ width: "70%" }}
               className='flex-row items-center justify-center gap-2 bg-neutral-200/[0.6] p-2 rounded-2xl'>
-              <Image source={require("../assets/images/categories/Snacks.jpeg")} alt='Location' height={20} width={40} resizeMode="contain" className='h-10 w-10 rounded-full bg-black/[0.2]' />
+              <Image source={require("../assets/images/categories/Snacks.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-10 w-10 rounded-full bg-black/[0.2]' />
               <View className='flex-row justify-between items-center w-[80%]'>
                 <View>
                   <Text className='text-black/[0.4] font-bold text-xs'>Order ID : 900273ASDJNH68</Text>

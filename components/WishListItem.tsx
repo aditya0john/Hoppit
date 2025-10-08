@@ -2,8 +2,10 @@ import { StoreItem } from '@/lib/schema';
 import { useCartStore } from '@/store/useCartStore';
 import { useWishList } from '@/store/useWishList';
 import { Ionicons } from '@expo/vector-icons';
+import * as Haptics from "expo-haptics";
 import React from 'react';
-import { View, Text, TouchableOpacity, Dimensions, Image } from 'react-native';
+import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native';
+
 
 export default function WishListItem({ products, category }: { products: StoreItem[], category: string }) {
   const screenWidth = Dimensions.get('window').width;
@@ -11,8 +13,18 @@ export default function WishListItem({ products, category }: { products: StoreIt
   const itemSpacing = 10;
   const itemWidth = (screenWidth - (numColumns + 1) * itemSpacing) / numColumns;
 
-  let { addItem } = useCartStore();
+  let { addItem, cartItems, increaseQty, decreaseQty } = useCartStore();
   let { removeFav } = useWishList();
+
+  function handleCart(data: StoreItem) {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
+    addItem(data);
+  }
+
+  function handleFav(data: string) {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    removeFav(data);
+  }
 
   return (
     <View className="flex items-center justify-center">
@@ -29,32 +41,52 @@ export default function WishListItem({ products, category }: { products: StoreIt
             padding: 1,
             justifyContent: 'flex-start',
           }}>
-          {products.map((data) => (
-            <View key={data.id} className="flex flex-col items-center justify-center relative">
-              <TouchableOpacity onPress={() => removeFav(data.name)} className='absolute top-1 right-1 z-50'>
-                <Ionicons name='heart' size={20} color={"red"} />
-              </TouchableOpacity>
-              <View
-                style={{ width: itemWidth, margin: 2 }}
-                className="h-44 items-center rounded-xl bg-[#F6D3D3]/[0.2]">
-                <Image source={require("../assets/images/categories/Chips.jpg")}
-                  alt="product image"
-                  height={20}
-                  width={40}
-                  resizeMode='cover'
-                  className='h-20 w-full rounded-t-xl' />
-                <Text className="text-lg font-bold capitalize text-black/[0.6]">{data.name}</Text>
-                <Text className="text-xs font-bold capitalize text-yellow-600">{data.price}</Text>
-                <View className='flex-row items-center'>
-                  <Ionicons name='time-outline' color={"red"} size={12} />
-                  <Text className="text-xs font-bold capitalize text-black/[0.6]">{data.time}</Text>
-                </View>
-                <TouchableOpacity onPress={() => addItem(data)} className='bg-red-200 px-2 py-1 rounded-xl items-center mt-1'>
-                  <Text className='text-black/[0.6] text-xs font-bold'>Add to Cart</Text>
+          {products.map((data) => {
+            const cartItem = cartItems.find((i) => i.name === data.name);
+
+            return (
+              <View key={data.id} className="flex flex-col items-center justify-center relative">
+                <TouchableOpacity onPress={() => handleFav(data.name)} className='absolute top-1 right-1 z-50'>
+                  <Ionicons name='heart' size={20} color={"red"} />
                 </TouchableOpacity>
+                <View
+                  style={{ width: itemWidth, margin: 2 }}
+                  className="h-44 items-center rounded-xl bg-[#F6D3D3]/[0.2]">
+                  <Image
+                    source={data.image}
+                    alt="product image"
+                    height={20}
+                    width={40}
+                    resizeMode='contain'
+                    className='h-20 w-full rounded-t-xl' />
+                  <Text className="text-lg font-bold capitalize text-black/[0.6]">{data.name}</Text>
+                  <Text className="text-xs font-bold capitalize text-yellow-600">{data.price}</Text>
+                  <View className='flex-row items-center'>
+                    <Ionicons name='time-outline' color={"red"} size={12} />
+                    <Text className="text-xs font-bold capitalize text-black/[0.6]">{data.time}</Text>
+                  </View>
+                  {cartItem ?
+                    <View className='flex-row items-center justify-center gap-1 bg-red-300 rounded-xl px-1'>
+                      <TouchableOpacity onPress={() => decreaseQty(data.name)} className='mt-1 flex-row items-center justify-center'>
+                        <Ionicons name='remove' size={14} color={"red"} />
+                      </TouchableOpacity>
+
+                      <Text className='text-black/[0.6] text-xl'>{cartItem.quantity}</Text>
+
+                      <TouchableOpacity onPress={() => increaseQty(data.name)} className='mt-1 flex-row items-center justify-center'>
+                        <Ionicons name='add' size={14} color={"red"} />
+                      </TouchableOpacity>
+                    </View>
+
+                    :
+                    <TouchableOpacity onPress={() => handleCart(data)} className='bg-red-200 px-2 py-1 rounded-xl items-center mt-1'>
+                      <Text className='text-black/[0.6] text-xs font-bold'>Add to Cart</Text>
+                    </TouchableOpacity>
+                  }
+                </View>
               </View>
-            </View>
-          ))}
+            )
+          })}
         </View>
       </View>
     </View>

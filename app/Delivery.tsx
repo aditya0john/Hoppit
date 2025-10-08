@@ -3,24 +3,28 @@ import { useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import * as Haptics from "expo-haptics";
 
 export default function Delivery() {
   const stages = ["Preparing", "Order Packed", "Hopping", "Delivered"];
   let [orderAccepted, setOrderAccepted] = useState(true);
   let [stageReached, setStageReached] = useState(1);
 
+  function CallHoppitHero() {
+    Haptics.selectionAsync();
+  }
+
   return (
     <GestureHandlerRootView >
-      <SafeAreaView className='flex-1 items-center bg-green-600' edges={["top", "left", "right"]}>
-        <Ionicons name='bicycle' size={50} color={"white"} />
+      <SafeAreaView className='flex-1 items-center' edges={["left", "right"]}>
         <Image source={require("../assets/images/map.png")} height={10} width={20} className='w-screen h-[40%]' resizeMode='cover' />
         {/* <MapView   provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-       region={{
-         latitude: 37.78825,
-         longitude: -122.4324,
-         latitudeDelta: 0.015,
-         longitudeDelta: 0.0121,
-       }}></MapView> */}
+          region={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.015,
+            longitudeDelta: 0.0121,
+          }}></MapView> */}
 
         <ScrollView className='bg-white rounded-t-3xl -mt-6 p-4'>
           <View className={`flex-col items-center gap-2 p-2 rounded-2xl ${orderAccepted ? "bg-green-600 " : "bg-yellow-500"}`}>
@@ -40,9 +44,9 @@ export default function Delivery() {
               </View>}
           </View>
 
-           <View
+          <View
             className='flex-row items-center gap-2 mt-4'>
-            <Image source={require("../assets/images/categories/Snacks.jpeg")} alt='Location' height={20} width={40} resizeMode="contain" className='h-16 w-16 rounded-full bg-black/[0.2]' />
+            <Image source={require("../assets/images/categories/Snacks.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-16 w-16 rounded-full bg-black/[0.2]' />
             <View className='flex-row justify-around items-center w-[80%] bg-neutral-200/[0.6] p-2 rounded-2xl'>
               <View>
                 <Text className='text-black/[0.4] font-bold text-xs'>Order ID : 900273ASDJNH68</Text>
@@ -71,27 +75,23 @@ export default function Delivery() {
               <View
                 className='flex-row items-center justify-between'>
                 <View className='flex-row items-center gap-2'>
-                  <Image source={require("../assets/images/Hoppit.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-14 w-14 rounded-full bg-white' />
+                  <Image source={require("../assets/images/HoppitHero.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-14 w-14 rounded-full bg-white' />
                   <View>
                     <Text className='text-black/[0.4] font-bold text-xs capitalize'>your hoppit hero</Text>
                     <Text className='text-red-400 font-bold text-xl capitalize w-full'>Dhananjay</Text>
                   </View>
                 </View>
-
                 <View className='flex-row gap-4'>
-                  <TouchableOpacity activeOpacity={0.6} className='bg-black/[0.1] p-1 rounded-full'>
+                  <TouchableOpacity
+                    onPress={CallHoppitHero}
+                    activeOpacity={0.6}
+                    className='bg-black/[0.1] p-1 rounded-full'>
                     <Ionicons name='call' size={24} color={"#0000004a"} className='p-1' />
                   </TouchableOpacity>
-
-                  <TouchableOpacity activeOpacity={0.6} className='bg-black/[0.1] p-1 rounded-full'>
-                    <Ionicons name='chatbox' size={24} color={"#0000004a"} className='p-1' />
-                  </TouchableOpacity>
-
                 </View>
               </View>
 
               <View className='w-full h-0 border border-black/[0.1]' />
-
               <View className='flex-row items-center gap-2'>
                 <Image source={require("../assets/images/HoppitStore.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-14 w-14 rounded-full bg-white' />
                 <View>
