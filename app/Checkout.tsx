@@ -25,14 +25,7 @@ function Checkout() {
         <GestureHandlerRootView>
             <SafeAreaView className={`flex-1 bg-[#FFF] p-2 items-center ${cartItems.length === 0 ? "justify-center" : "justify-start"}`} edges={["left", "right"]}>
                 <ScrollView contentContainerStyle={{ display: "flex", flexDirection: "column", gap: 10 }} className='h-full w-full'>
-                    <View className='flex-col gap-4 bg-neutral-200/[0.6] p-4 rounded-2xl w-full'>
-                        <Text className='text-2xl font-bold'>Delivery Address</Text>
-                        <View>
-                            <Text className='text-xl text-black/[0.8] font-bold capitalize'>Meeting point</Text>
-                            <Text className='text-md text-black/[0.6] capitalize'>andheri gali, shaitan mohalla, kabristan ke paas</Text>
-                        </View>
-                        <Text className='text-md text-blue-600 capitalize'>change address</Text>
-                    </View>
+
                     <View className='flex-col gap-4 bg-neutral-200/[0.6] p-4 rounded-2xl w-full'>
                         <Text className='text-2xl font-bold'>Bill details</Text>
 
@@ -97,13 +90,25 @@ function Checkout() {
                         }
                     </View>
                 </ScrollView>
+
+                <View className='py-2 gap-2 items-end justify-center mb-4 bg-[#FFF]'>
+                    <View className='bg-neutral-200/[0.6] flex-row items-center justify-between gap-2 p-4 rounded-2xl w-full'>
+                        <View>
+                            <Text className='text-lg font-bold'>Delivery Address</Text>
+                            <View>
+                                <Text className='text-md text-black/[0.8] font-bold capitalize'>Meeting point</Text>
+                                <Text className='text-xs text-black/[0.6] capitalize'>andheri gali, shaitan mohalla, kabristan ke paas</Text>
+                            </View>
+                        </View>
+                        <Text className='text-xs text-blue-600 capitalize'>change address</Text>
+                    </View>
+                    <TouchableOpacity onPress={() => router.push("/Delivery")} activeOpacity={0.6} className='w-56 bg-green-500 p-2 rounded-3xl flex-row items-center justify-center gap-2'>
+                        <Text className='text-3xl font-bold text-white'>Place Order</Text>
+                        <Ionicons name='chevron-forward-circle-outline' size={24} color={"white"} />
+                    </TouchableOpacity>
+                </View>
             </SafeAreaView>
-            <View className='px-4'>
-                <TouchableOpacity onPress={() => router.push("/Delivery")} activeOpacity={0.6} className='w-52 bg-green-500 p-2 rounded-3xl flex-row items-center justify-center gap-2'>
-                    <Text className='text-3xl font-bold text-white'>Place Order</Text>
-                    <Ionicons name='chevron-forward-circle-outline' size={24} color={"white"} />
-                </TouchableOpacity>
-            </View>
+
         </GestureHandlerRootView>
     )
 }

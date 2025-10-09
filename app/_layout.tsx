@@ -1,119 +1,80 @@
 import { Ionicons } from '@expo/vector-icons';
-import { router, Tabs } from 'expo-router';
-import { TouchableOpacity } from 'react-native';
-import '../global.css';
+import { Stack, router } from 'expo-router';
+import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
+import useCachedResources from '@/store/useCachedResources';
+import { HeaderTitle } from '@react-navigation/elements';
 
 export default function RootLayout() {
+  const isReady = useCachedResources();
+
+  if (!isReady) {
+    return (
+      <View className="flex-1 justify-center items-center bg-white">
+        <ActivityIndicator size="large" color="red" />
+      </View>
+    );
+  }
+
   return (
-    <Tabs
+    <Stack
       screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: 'red',
-        tabBarInactiveTintColor: "#6E6E6E8a",
-        tabBarIconStyle: { color: '#190D05' },
-        tabBarStyle: { backgroundColor: '#F6D3D34a', borderTopWidth: 0, maxHeight: 70 },
-      }}>
-      <Tabs.Screen
-        name="index"
+        headerStyle: { backgroundColor: 'white' },
+        headerTitleAlign: 'center',
+      }}
+    >
+      {/* Home Page */}
+      <Stack.Screen
+        name="(tabs)"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons name={`${focused ? 'home' : 'home-outline'}`} size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="(tabs)/Restaurant"
-        options={{
-          title: 'Restaurant',
-          href: null,
-          tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons
-              name={`${focused ? 'restaurant' : 'restaurant-outline'}`}
-              size={size}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="Cart"
-        options={{
-          title: "Cart",
-          headerTitleStyle: { color: "gray", fontSize: 24 },
-          headerStyle: { backgroundColor: "white", height: 100 },
-          headerShown: true,
-          headerTitle: () => (
-            <Ionicons
-              className='w-full'
-              name='cart-outline'
-              size={40}
-              color={"gray"}
-            />
-          ),
-          tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons
-              name={`${focused ? 'cart' : 'cart-outline'}`}
-              size={size}
-              color={color}
-            />
-          ),
+          title: "Home",
+          headerShown: false, // Tabs are hidden if you still want a home tab
         }}
       />
 
-      <Tabs.Screen
-        name="(tabs)/settings"
-        options={{
-          title: 'Profile',
-          tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons
-              name={`${focused ? 'person-circle' : 'person-circle-outline'}`}
-              size={size}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
+      {/* Delivery */}
+      <Stack.Screen
         name="Delivery"
         options={{
-          headerStyle: { backgroundColor: "white", height: 100 },
-          href: null,
+          gestureEnabled: false,
           headerShown: true,
-          headerLeft: () => (<TouchableOpacity className='px-2' onPress={() => router.push("/")}><Ionicons name='chevron-back' size={20} color={"gray"} /></TouchableOpacity>),
-          headerTitle: () => (
-            <Ionicons
-              name='bicycle'
-              size={40}
-              color={"gray"}
-            />
+          headerLeft: () => (
+            <TouchableOpacity className='px-2' onPress={() => router.push("/")}>
+              <Ionicons name='chevron-back' size={20} color={"gray"} />
+            </TouchableOpacity>
           ),
+          headerTitle: () => <Ionicons name="bicycle" size={40} color="gray" />,
         }}
       />
-      <Tabs.Screen
+
+      {/* Checkout */}
+      <Stack.Screen
         name="Checkout"
         options={{
-          headerStyle: { backgroundColor: "white", height: 100 },
-          href: null,
+          gestureEnabled: false,
           headerShown: true,
-          headerLeft: () => (<TouchableOpacity className='px-2' onPress={() => router.push("/Cart")}><Ionicons name='chevron-back' size={20} color={"gray"} /></TouchableOpacity>),
-          headerTitle: () => (
-            <Ionicons
-              name='card-outline'
-              size={40}
-              color={"gray"}
-            />
+          headerLeft: () => (
+            <TouchableOpacity className='px-2' onPress={() => router.push("/Cart")}>
+              <Ionicons name='chevron-back' size={20} color={"gray"} />
+            </TouchableOpacity>
           ),
+          headerTitle: () => <Ionicons name="card-outline" size={40} color="gray" />,
         }}
       />
-      <Tabs.Screen
+      {/* Category Page */}
+      <Stack.Screen
         name="CategoryPage/[Category]"
         options={{
-          title: "Categories",
-          href: null,
-          headerShown: false,
+          title: 'Categories',
+          gestureEnabled: false,
+          headerShown: true,
+          headerLeft: () => (
+            <TouchableOpacity className='px-2' onPress={() => router.push("/")}>
+              <Ionicons name='chevron-back' size={20} color={"gray"} />
+            </TouchableOpacity>
+          ),
+          headerTitle: () => <Ionicons name="grid" size={40} color="gray" />,
         }}
       />
-    </Tabs>
+    </Stack>
   );
 }

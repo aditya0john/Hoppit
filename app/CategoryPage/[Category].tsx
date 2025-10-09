@@ -5,12 +5,19 @@ import { useWishList } from '@/store/useWishList';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from "expo-haptics";
 import { router, useLocalSearchParams } from 'expo-router';
-import React from 'react';
+import React, { useState } from 'react';
 import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native';
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 function CategoryPage() {
+    const { id } = useLocalSearchParams<{ id?: string }>(); // e.g., ?category=fruits
+
+    let [selectedCat, setSelectedCat] = useState(id);
+
+    const categoryProducts: StoreItem[] =
+        selectedCat && selectedCat in products ? products[selectedCat as keyof typeof products] : [];
+
     const screenWidth = Dimensions.get('window').width;
     const numColumns = 4;
     const itemSpacing = 10;
@@ -29,13 +36,11 @@ function CategoryPage() {
         addFav(data);
     }
 
-    const { id } = useLocalSearchParams<{ id?: string }>(); // e.g., ?category=fruits
-    const categoryProducts: StoreItem[] =
-        id && id in products ? products[id as keyof typeof products] : [];
+
 
     return (
         <GestureHandlerRootView>
-            <SafeAreaView className="flex-1 bg-[#FFF] p-2" edges={["top", "left", "right"]}>
+            <SafeAreaView className="flex-1 bg-[#FFF] p-2" edges={[ "left", "right"]}>
                 <View className='flex-row w-full gap-2'>
                     <View style={{ flex: 2 }}>
                         <ScrollView
@@ -50,12 +55,7 @@ function CategoryPage() {
                             showsVerticalScrollIndicator={false}>
                             {categories.map((data) => (
                                 <TouchableOpacity
-                                    onPress={() => router.push({
-                                        pathname: "/CategoryPage/[Category]",
-                                        params: {
-                                            id: data.id,
-                                        },
-                                    })}
+                                    onPress={() => setSelectedCat(data.id)}
                                     key={data.id}
                                     activeOpacity={0.8}
                                     className="flex-col items-center justify-center rounded-full">
@@ -79,7 +79,7 @@ function CategoryPage() {
 
                     <View style={{ flex: 8 }}>
                         <View className='items-center'>
-                            <Text className='uppercase text-black/[0.4] font-bold text-3xl'>{id}</Text>
+                            <Text className='uppercase text-black/[0.4] font-bold text-3xl'>{selectedCat}</Text>
                         </View>
                         <ScrollView
                             contentContainerStyle={{

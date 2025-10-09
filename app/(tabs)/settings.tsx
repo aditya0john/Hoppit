@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { settingsData } from '@/lib/data';
 import { router } from 'expo-router';
 
-export default function settings() {
+export default function Settings() {
   return (
     <GestureHandlerRootView>
       <SafeAreaView className="flex-1 items-center justify-center gap-4 bg-[#FFF] p-2" edges={["top", "left", "right"]}>
