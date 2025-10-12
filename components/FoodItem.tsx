@@ -52,7 +52,8 @@ export default function FoodItem({ products, category }: { products: StoreItem[]
                 <View
                   style={{ width: itemWidth, margin: 2 }}
                   className="h-44 items-center rounded-xl bg-[#F6D3D3]/[0.2]">
-                  <Image source={data.image}
+                  <Image
+                    source={data.image}
                     alt="product image"
                     height={20}
                     width={40}

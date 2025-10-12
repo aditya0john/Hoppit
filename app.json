@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Hoppit",
-    "slug": "Hoppit",
+    "slug": "hoppit",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/LOGO2.png",
@@ -48,6 +48,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "b7aeda72-7a90-42ce-b0f1-0dca8ea5a5f9"
+      }
+    },
+    "owner": "aditya_john"
   }
 }

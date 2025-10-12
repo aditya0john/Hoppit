@@ -3,6 +3,7 @@ import FoodItem from '@/components/FoodItem';
 import SearchBar from '@/components/SearchBar';
 import WishListItem from '@/components/WishListItem';
 import { products } from '@/lib/data';
+import { useSearchBar } from '@/store/useSearchBar';
 import { useWishList } from '@/store/useWishList';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
@@ -44,8 +45,9 @@ export default function Index() {
         <ScrollView>
           <View className='flex-row items-center gap-2 mt-2'>
             <TouchableOpacity
+              onPress={() => router.push("/SearchPage")}
               activeOpacity={0.8}
-              className='bg-[#F6D3D3]/[0.6] py-1 rounded-lg flex-row items-center justify-start'>
+              className='bg-[#F6D3D3]/[0.6] py-1 rounded-xl flex-row items-center justify-start'>
               <Image source={require("../../assets/images/location.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-10 w-10' />
               <View className='flex-row items-center'>
                 <View>
@@ -61,7 +63,7 @@ export default function Index() {
 
           <CategoryCarousel />
 
-          {wishList.length > 0 && <WishListItem category='wishlist' products={wishList} />}
+          {wishList.length > 0 && <WishListItem category='your wishlist' products={wishList} />}
 
           <FoodItem products={products.fruits} category='Fruits' />
           <FoodItem products={products.vegetables} category='Vegetables' />

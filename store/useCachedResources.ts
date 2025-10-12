@@ -20,7 +20,6 @@ export default function useCachedResources() {
           require('../assets/images/LOGO2.png'),
           require('../assets/images/location.png'),
           require('../assets/images/HP.png'),
-          require('../assets/images/.png'),
         ]);
 
         await Promise.all([...imageAssets]);

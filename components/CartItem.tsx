@@ -45,7 +45,7 @@ export default function CartItem({ products }: { products: StoreItem[] }) {
                         </View>
 
                         <TouchableOpacity onPress={() => handleCart(data.name)} className='mt-1'>
-                            <Ionicons name='remove-circle' size={24} color={"red"} />
+                            <Ionicons name='close-circle' size={24} color={"red"} />
                         </TouchableOpacity>
                     </View>
                 </View>

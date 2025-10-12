@@ -89,21 +89,22 @@ export default function Cart() {
                                 </View>
                             </View>
 
-                            <View className='bg-neutral-200/[0.6] flex-row items-center justify-between gap-2 p-4 rounded-2xl w-full'>
-                                <View>
-                                    <Text className='text-lg font-bold'>Delivery Address</Text>
+
+                            <View className='bg-neutral-200/[0.6] gap-4 p-4 rounded-2xl w-full'>
+                                <Text className='text-2xl font-bold'>Delivery Address</Text>
+                                <View className='flex-row justify-between items-center'>
                                     <View>
-                                        <Text className='text-md text-black/[0.8] font-bold capitalize'>Meeting point</Text>
+                                        <Text className='text-lg text-black/[0.8] font-bold capitalize'>Meeting point</Text>
                                         <Text className='text-xs text-black/[0.6] capitalize'>andheri gali, shaitan mohalla, kabristan ke paas</Text>
                                     </View>
+                                    <Text className='text-xs text-blue-600 capitalize'>change address</Text>
                                 </View>
-                                <Text className='text-xs text-blue-600 capitalize'>change address</Text>
                             </View>
+
 
                             <View className='flex-col gap-4 bg-neutral-200/[0.6] p-4 rounded-2xl w-full mb-10'>
                                 <Text className='text-2xl font-bold'>Payment options</Text>
                                 <RadioGroup onChange={(e) => setMethod(e)} value={method} options={options} />
-
                                 {(method == "upi" || method == "card") &&
                                     <View className="relative flex-row items-center w-[100%]">
                                         <TextInput
@@ -128,7 +129,7 @@ export default function Cart() {
                                 Pay <Text className=' text-black/[0.6]'>Rs {totalPrice}</Text>
                             </Text>
                         </View>
-                        <View className='bg-gray-100 p-2 rounded-xl flex-row gap-2 items-center justify-center w-full'>
+                        <View className='bg-neutral-200/[0.6] p-2 rounded-xl flex-row gap-2 items-center justify-center w-full'>
                             <Text className='text-xs text-blue-600 uppercase'>{method}</Text>
                         </View>
                     </View>

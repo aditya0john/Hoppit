@@ -2,7 +2,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { Stack, router } from 'expo-router';
 import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import useCachedResources from '@/store/useCachedResources';
-import { HeaderTitle } from '@react-navigation/elements';
 
 export default function RootLayout() {
   const isReady = useCachedResources();
@@ -26,7 +25,17 @@ export default function RootLayout() {
       <Stack.Screen
         name="(tabs)"
         options={{
+          gestureEnabled: false,
           title: "Home",
+          headerShown: false, // Tabs are hidden if you still want a home tab
+        }}
+      />
+
+      <Stack.Screen
+        name="settings"
+        options={{
+          gestureEnabled: false,
+          title: "settings",
           headerShown: false, // Tabs are hidden if you still want a home tab
         }}
       />
@@ -35,10 +44,9 @@ export default function RootLayout() {
       <Stack.Screen
         name="Delivery"
         options={{
-          gestureEnabled: false,
           headerShown: true,
           headerLeft: () => (
-            <TouchableOpacity className='px-2' onPress={() => router.push("/")}>
+            <TouchableOpacity className='px-2' onPress={() => router.back()}>
               <Ionicons name='chevron-back' size={20} color={"gray"} />
             </TouchableOpacity>
           ),
@@ -50,31 +58,45 @@ export default function RootLayout() {
       <Stack.Screen
         name="Checkout"
         options={{
-          gestureEnabled: false,
           headerShown: true,
           headerLeft: () => (
-            <TouchableOpacity className='px-2' onPress={() => router.push("/Cart")}>
+            <TouchableOpacity className='px-2' onPress={() => router.back()}>
               <Ionicons name='chevron-back' size={20} color={"gray"} />
             </TouchableOpacity>
           ),
           headerTitle: () => <Ionicons name="card-outline" size={40} color="gray" />,
         }}
       />
+
       {/* Category Page */}
       <Stack.Screen
         name="CategoryPage/[Category]"
         options={{
           title: 'Categories',
-          gestureEnabled: false,
           headerShown: true,
           headerLeft: () => (
-            <TouchableOpacity className='px-2' onPress={() => router.push("/")}>
+            <TouchableOpacity className='px-2' onPress={() => router.back()}>
               <Ionicons name='chevron-back' size={20} color={"gray"} />
             </TouchableOpacity>
           ),
           headerTitle: () => <Ionicons name="grid" size={40} color="gray" />,
         }}
       />
+
+      {/* Search Page*/}
+      <Stack.Screen
+        name="SearchPage"
+        options={{
+          headerShown: true,
+          headerLeft: () => (
+            <TouchableOpacity className='px-2' onPress={() => router.back()}>
+              <Ionicons name='close' size={20} color={"gray"} />
+            </TouchableOpacity>
+          ),
+          headerTitle: () => <Ionicons name="search" size={40} color="gray" />,
+        }}
+      />
+
     </Stack>
   );
 }

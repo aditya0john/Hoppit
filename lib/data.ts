@@ -21,7 +21,6 @@ export const categories: CategorySchema[] = [
 ];
 
 
-
 // const BASE_URL = '../assets/images/categories/';
 
 // export const categories: CategorySchema[] = [
@@ -185,18 +184,18 @@ export const products: Record<string, StoreItem[]> = {
 
 export const settingsData: { General: SettingItem[]; Account: SettingItem[] } = {
   General: [
-    { id: 'General', name: 'General', image: require('../assets/images/categories/Sweets.png'), href: '/general' },
-    { id: 'Orders', name: 'Orders', image: require('../assets/images/categories/Sweets.png'), href: '/orders' },
-    { id: 'Login & Password', name: 'Login & Password', image: require('../assets/images/categories/Sweets.png'), href: '/auth' },
+    { id: 'General', name: 'General', image: "cog-outline", href: '/settings/General' },
+    { id: 'Orders', name: 'Orders', image: "receipt-outline", href: '/settings/Orders' },
+    { id: 'Login & Password', name: 'Login & Password', image: "key-outline", href: '/settings/LoginPass' },
   ],
 
   Account: [
-    { id: 'Complaints', name: 'Complaints', image: require('../assets/images/categories/Sweets.png'), href: '/complaints' },
+    { id: 'Complaints', name: 'Complaints', image: "thumbs-down-outline", href: '/settings/Complaints' },
     {
       id: 'Delete & Deactivate Account',
       name: 'Delete & Deactivate Account',
-      image: require('../assets/images/categories/Sweets.png'),
-      href: '/deleteAccount',
+      image: "person-remove-outline",
+      href: '/settings/Account',
     },
   ],
 };
