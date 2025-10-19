@@ -1,16 +1,19 @@
+import GooglePlaces from '@/components/GooglePlaces'
 import { Ionicons } from '@expo/vector-icons'
 import React, { useState } from 'react'
-import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Image, TextInput, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function SearchPage() {
 
-    let [address, setAddress] = useState({ main: "Meeting Point", subroute: "andheri gali, shaitaan mohalla" })
-    let [searchPrompt, setSearchPrompt] = useState("")
+    let [address, setAddress] = useState({ main: "Search", subroute: "enter your address here" })
+    let [searchPrompt, setSearchPrompt] = useState("");
 
     return (
         <SafeAreaView className='flex-1 bg-[#FFF] p-2' edges={["left", "right"]}>
             <View className='gap-4'>
+                {/* <GooglePlaces /> */}
+
                 <TouchableOpacity
                     style={{ height: 52 }}
                     activeOpacity={0.8}
@@ -38,7 +41,7 @@ export default function SearchPage() {
                     />
                     <TextInput
                         value={searchPrompt}
-                        autoFocus
+                        onChangeText={setSearchPrompt}
                         selectTextOnFocus
                         placeholder="search here"
                         placeholderTextColor={"#888"}

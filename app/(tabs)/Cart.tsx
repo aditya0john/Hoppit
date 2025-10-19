@@ -15,9 +15,9 @@ export default function Cart() {
     const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
     const options = [
-        { key: "upi", label: "UPI", subtitle: "Pay using UPI - ID", },
-        { key: "card", label: "Card", subtitle: "Visa / MasterCard / Amex / Credit / Debit" },
-        { key: "cod", label: "Cash on delivery", subtitle: "Pay at delivery" },
+        { key: "upi", label: "UPI", subtitle: "Pay using UPI - ID", icon: "cash" },
+        { key: "card", label: "Card", subtitle: "Visa / MasterCard / Amex / Credit / Debit", icon: "card" },
+        { key: "cod", label: "Cash on delivery", subtitle: "Pay at delivery", icon: "wallet" },
     ] as const;
 
     const [method, setMethod] = useState<PaymentKey | null>("upi");
@@ -36,7 +36,10 @@ export default function Cart() {
                             <CartItem products={cartItems} />
 
                             <View className='w-full flex-row justify-between bg-neutral-200/[0.6] p-4 rounded-2xl'>
-                                <Text className='text-2xl font-semibold text-black/[0.6]'>Coupons</Text>
+                                <View className='flex-row gap-2'>
+                                    <Ionicons name='ticket-outline' size={30} color={"gray"} />
+                                    <Text className='text-2xl text-black/[0.6] font-semibold'>Coupons</Text>
+                                </View>
                                 <Ionicons name='chevron-forward' size={30} color={"gray"} />
                             </View>
 
@@ -84,8 +87,8 @@ export default function Cart() {
                                 <View className='h-0 w-full border border-black/[0.2]' />
 
                                 <View className='flex-row justify-between px-2'>
-                                    <Text className='text-xl font-bold capitalize'>Grand Total</Text>
-                                    <Text className='text-black text-xl font-bold'>{totalPrice + 14}</Text>
+                                    <Text className='text-2xl font-bold capitalize'>Grand Total</Text>
+                                    <Text className='text-2xl font-bold'>{totalPrice + 14}</Text>
                                 </View>
                             </View>
 
@@ -126,14 +129,14 @@ export default function Cart() {
                         <View className='flex-row items-center gap-2'>
                             <Ionicons name='cash' size={20} color={"gray"} />
                             <Text className='font-bold text-xl text-black/[0.8]'>
-                                Pay <Text className=' text-black/[0.6]'>Rs {totalPrice}</Text>
+                                Pay <Text className=' text-red-500'>Rs {totalPrice}</Text>
                             </Text>
                         </View>
-                        <View className='bg-neutral-200/[0.6] p-2 rounded-xl flex-row gap-2 items-center justify-center w-full'>
+                        <View className='bg-neutral-200/[0.6] p-2 rounded-xl flex-row gap-2 items-center justify-center w-[50%]'>
                             <Text className='text-xs text-blue-600 uppercase'>{method}</Text>
                         </View>
                     </View>
-                    <TouchableOpacity onPress={() => router.push("/Checkout")} activeOpacity={0.6} className='w-52 bg-green-500 p-2 rounded-3xl flex-row items-center justify-center'>
+                    <TouchableOpacity onPress={() => router.push("/Checkout")} activeOpacity={0.6} className='w-52 bg-red-500 p-2 rounded-xl flex-row items-center justify-center'>
                         <Text className='text-3xl font-bold text-white'>Place Order</Text>
                         <Ionicons name='chevron-forward-outline' size={24} color={"white"} />
                     </TouchableOpacity>

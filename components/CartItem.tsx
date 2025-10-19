@@ -3,11 +3,11 @@ import { useCartStore } from '@/store/useCartStore';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from "expo-haptics";
 import React from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 
 export default function CartItem({ products }: { products: StoreItem[] }) {
-    let { removeItem ,increaseQty ,decreaseQty } = useCartStore();
+    let { removeItem, increaseQty, decreaseQty } = useCartStore();
 
     function handleCart(data: string) {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
@@ -33,13 +33,15 @@ export default function CartItem({ products }: { products: StoreItem[] }) {
                     </View>
                     <View className='flex-row justify-center items-center gap-6 px-2'>
                         <View className='flex-row items-center justify-center gap-1 bg-red-300 rounded-xl p-1'>
-                            <TouchableOpacity onPress={()=>decreaseQty(data.name)} className='mt-1 flex-row items-center justify-center'>
+                            <TouchableOpacity onPress={() => decreaseQty(data.name)} className='mt-1 flex-row items-center justify-center'>
                                 <Ionicons name='remove' size={16} color={"red"} />
                             </TouchableOpacity>
 
-                            <Text className='text-black/[0.6] text-xl'>{data.quantity}</Text>
+                            <View className='justify-center w-8 items-center'>
+                                <Text className='text-black/[0.6] text-xl'>{data.quantity}</Text>
+                            </View>
 
-                            <TouchableOpacity onPress={()=>increaseQty(data.name)} className='mt-1 flex-row items-center justify-center'>
+                            <TouchableOpacity onPress={() => increaseQty(data.name)} className='mt-1 flex-row items-center justify-center'>
                                 <Ionicons name='add' size={16} color={"red"} />
                             </TouchableOpacity>
                         </View>

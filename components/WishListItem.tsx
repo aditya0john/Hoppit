@@ -10,7 +10,7 @@ import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native';
 export default function WishListItem({ products, category }: { products: StoreItem[], category: string }) {
   const screenWidth = Dimensions.get('window').width;
   const numColumns = 3;
-  const itemSpacing = 10;
+  const itemSpacing = 8;
   const itemWidth = (screenWidth - (numColumns + 1) * itemSpacing) / numColumns;
 
   let { addItem, cartItems, increaseQty, decreaseQty } = useCartStore();

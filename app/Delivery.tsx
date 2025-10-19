@@ -1,32 +1,83 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useState } from 'react';
+import * as Haptics from "expo-haptics";
+import { useNavigation } from 'expo-router';
+import { useEffect, useRef, useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
+import MapView, { Callout, Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import * as Haptics from "expo-haptics";
+
 
 export default function Delivery() {
+
   const stages = ["Preparing", "Order Packed", "Hopping", "Delivered"];
   let [orderAccepted, setOrderAccepted] = useState(true);
   let [stageReached, setStageReached] = useState(1);
 
-  function CallHoppitHero() {
+  const mapRef = useRef<any>();
+  const navigation = useNavigation();
+
+  const INITIAL_REGION = {
+    latitude: 30.29,
+    longitude: 77.47,
+    latitudeDelta: 0.1,
+    longitudeDelta: 0.1
+  }
+
+  useEffect(() => (
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity activeOpacity={0.8} onPress={FocusMap}>
+          <Text>Track Order</Text>
+        </TouchableOpacity>
+      )
+    })
+  ), [])
+
+  const FocusMap = () => {
+    const Order = {
+      latitude: 30.29,
+      longitude: 77.47,
+      latitudeDelta: 0.1,
+      longitudeDelta: 0.1
+    }
+    mapRef.current?.animateCamera({ center: Order, zoom: 15 }, { duration: 1000 });
+  }
+
+  const CallHoppitHero = () => {
     Haptics.selectionAsync();
   }
 
   return (
     <GestureHandlerRootView >
       <SafeAreaView className='flex-1 items-center' edges={["left", "right"]}>
-        <Image source={require("../assets/images/map.png")} height={10} width={20} className='w-screen h-[40%]' resizeMode='cover' />
-        {/* <MapView   provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-          region={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.015,
-            longitudeDelta: 0.0121,
-          }}></MapView> */}
+        {/* <Image source={require("../assets/images/map.png")} height={10} width={20} className='w-screen h-[40%]' resizeMode='cover' /> */}
+        <MapView
+          provider={PROVIDER_GOOGLE}
+          style={{ height: "50%", width: "100%" }}
+          initialRegion={INITIAL_REGION}
+          showsUserLocation
+          showsMyLocationButton
+          ref={mapRef}
+        >
+          <Polyline
+            coordinates={[
+              { latitude: 30.29, longitude: 77.47, },
+              { latitude: 30.286, longitude: 77.498, },
+            ]}
+            strokeColors={["#ff4343"]} // fallback for when `strokeColors` is not supported by the map-provider
+            strokeWidth={4}
+          />
+          <Marker coordinate={INITIAL_REGION} >
+            <Callout>
+              <View className='bg-white p-2'>
+                <Text className='text-xs'>{Marker.name}</Text>
+              </View>
+            </Callout>
+          </Marker>
+        </MapView>
 
-        <ScrollView className='bg-white rounded-t-3xl -mt-6 p-4'>
+        <ScrollView className='bg-white rounded-t-3xl p-4'>
           <View className={`flex-col items-center gap-2 p-2 rounded-2xl ${orderAccepted ? "bg-green-600 " : "bg-yellow-500"}`}>
             {orderAccepted ? <View className='flex-col gap-4 items-center'>
               <View className='flex-row items-center justify-between w-full px-2'>

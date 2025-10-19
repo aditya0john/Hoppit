@@ -3,23 +3,35 @@ import FoodItem from '@/components/FoodItem';
 import SearchBar from '@/components/SearchBar';
 import WishListItem from '@/components/WishListItem';
 import { products } from '@/lib/data';
-import { useSearchBar } from '@/store/useSearchBar';
 import { useWishList } from '@/store/useWishList';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
+import { useState } from 'react';
 import { Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+const OngoingOrders = [{
+  orderId: "900273ASDJNH68",
+  name: "Snacks"
+}, {
+  orderId: "900273ASDJNH68",
+  name: "Soft Drink"
+}, {
+  orderId: "900273ASDJNH68",
+  name: "Biryani"
+},];
+
 export default function Index() {
+  const [showAllOrders, setShowAllOrders] = useState(false);
   const { wishList } = useWishList(); //send this to zustand
 
   return (
     <GestureHandlerRootView>
-      <SafeAreaView className="flex-1 bg-[#FFF] p-2" edges={["top", "left", "right"]}>
+      <SafeAreaView className="flex-1 bg-[#FFF] p-2" edges={["top", "left", "right"]} >
         <View className='flex-row justify-between items-end p-2'>
           <View className='flex-row'>
-            <Image source={require("../../assets/images/LOGO2.png")} alt='Hoppit Points' height={20} width={40} resizeMode="contain" className='h-20 w-20' />
+            <Image source={require("../../assets/images/LOGO2.png")} alt='Hoppit-LOGO' height={20} width={40} resizeMode="contain" className='h-20 w-20' />
 
             <View className='flex-col items-start justify-end mb-2'>
               <View className='flex-row items-end'>
@@ -33,7 +45,7 @@ export default function Index() {
 
           <View className='items-end'>
             <View className='flex-row items-center'>
-              <Image source={require("../../assets/images/HP.png")} alt='Hoppit Points' height={20} width={40} resizeMode='contain' className='h-12 w-12' />
+              <Image source={require("../../assets/images/HP.png")} alt='Hoppit-Points' height={20} width={40} resizeMode='contain' className='h-12 w-12' />
               <View className='bg-[#F6D3D3]/[0.6] p-1 rounded-lg -ml-1 items-center'>
                 <Text className='text-red-500 text-3xl font-mono text font-extrabold'>20</Text>
                 <Text className='text-[#6E6E6E] text-xs'>HopCoins</Text>
@@ -59,6 +71,7 @@ export default function Index() {
             </TouchableOpacity>
 
             <SearchBar />
+
           </View>
 
           <CategoryCarousel />
@@ -67,26 +80,52 @@ export default function Index() {
 
           <FoodItem products={products.fruits} category='Fruits' />
           <FoodItem products={products.vegetables} category='Vegetables' />
+        </ScrollView>
 
-          <View style={{ position: "sticky", bottom: 4 }} className='items-center justify-center'>
-            <TouchableOpacity
-              onPress={() => router.push("/Delivery")}
-              activeOpacity={0.6}
-              style={{ width: "70%" }}
-              className='flex-row items-center justify-center gap-2 bg-neutral-200/[0.6] p-2 rounded-2xl'>
-              <Image source={require("../../assets/images/categories/Snacks.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-10 w-10 rounded-full bg-black/[0.2]' />
-              <View className='flex-row justify-between items-center w-[80%]'>
-                <View>
+
+        <View className='flex-row items-center justify-center gap-2'>
+          {
+            showAllOrders ?
+              <View className='gap-4'>
+                {
+                  OngoingOrders.map((order, i) => (
+                    <TouchableOpacity
+                      key={i}
+                      onPress={() => router.push("/Delivery")}
+                      activeOpacity={0.6}
+                      style={{ width: "60%" }}
+                      className='flex-row items-center justify-center gap-2 bg-neutral-200/[0.6] p-2 rounded-2xl'>
+                      <Image source={require("../../assets/images/categories/Snacks.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-10 w-10 rounded-full bg-black/[0.2]' />
+                      <View className='w-[80%]'>
+                        <Text className='text-black/[0.4] font-bold text-xs'>Order ID : {order.orderId}</Text>
+                        <Text className='text-red-400 font-bold text-md capitalize w-full'>{order.name}</Text>
+                      </View>
+                    </TouchableOpacity>
+                  ))
+                }
+              </View>
+              :
+              <TouchableOpacity
+                onPress={() => router.push("/Delivery")}
+                activeOpacity={0.6}
+                style={{ width: "60%" }}
+                className='flex-row items-center justify-center gap-2 bg-neutral-200/[0.6] p-2 rounded-2xl'>
+                <Image source={require("../../assets/images/categories/Snacks.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-10 w-10 rounded-full bg-black/[0.2]' />
+                <View className='w-[80%]'>
                   <Text className='text-black/[0.4] font-bold text-xs'>Order ID : 900273ASDJNH68</Text>
                   <Text className='text-red-400 font-bold text-md capitalize w-full'>Snacks from Hoppit</Text>
                 </View>
-                <View className='flex-row gap-4'>
-                  <Text className='text-black/[0.4] font-bold text-md'>+2</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
+              </TouchableOpacity>
+          }
+          <TouchableOpacity
+            onPress={() => setShowAllOrders(!showAllOrders)}
+            activeOpacity={0.6}
+            className='flex-row items-center justify-center gap-2 bg-neutral-200/[0.6] p-2 rounded-2xl h-full'>
+            <View className='flex-row gap-4'>
+              <Text className='text-black/[0.4] font-semibold text-xl'>{showAllOrders ? "Collapse" : "+1"}</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </SafeAreaView>
 
       <StatusBar backgroundColor="#C4FFA5" barStyle={"dark-content"} />

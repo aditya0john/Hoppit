@@ -37,10 +37,9 @@ function CategoryPage() {
     }
 
 
-
     return (
         <GestureHandlerRootView>
-            <SafeAreaView className="flex-1 bg-[#FFF] p-2" edges={[ "left", "right"]}>
+            <SafeAreaView className="flex-1 bg-[#FFF] p-2" edges={["left", "right"]}>
                 <View className='flex-row w-full gap-2'>
                     <View style={{ flex: 2 }}>
                         <ScrollView
@@ -50,7 +49,7 @@ function CategoryPage() {
                                 justifyContent: 'center',
                                 gap: 4,
                                 padding: 6,
-                                marginLeft: 2
+                                marginLeft: 2,
                             }}
                             showsVerticalScrollIndicator={false}>
                             {categories.map((data) => (
@@ -64,7 +63,7 @@ function CategoryPage() {
                                         alt="Category image"
                                         height={40}
                                         width={40}
-                                        className="h-20 w-20 rounded-full bg-[#F6D3D3]/[0.4] object-cover"
+                                        className={`h-20 w-20 rounded-full bg-[#F6D3D3]/[0.4] object-cover ${selectedCat === data.id ? "border-2 border-red-400" : ""}`}
                                         resizeMode="cover"
                                     />
                                     <Text className="mt-2 text-center text-xs font-bold text-black/[0.6]">
@@ -78,9 +77,6 @@ function CategoryPage() {
                     <View className='h-full w-0 border border-black/[0.1]' />
 
                     <View style={{ flex: 8 }}>
-                        <View className='items-center'>
-                            <Text className='uppercase text-black/[0.4] font-bold text-3xl'>{selectedCat}</Text>
-                        </View>
                         <ScrollView
                             contentContainerStyle={{
                                 flexDirection: 'row',

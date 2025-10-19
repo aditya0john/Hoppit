@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, AccessibilityRole } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 
-type Option<T extends string> = { key: T; label: string; subtitle?: string; icon?: React.ReactNode };
+type Option<T extends string> = { key: T; label: string; subtitle?: string; icon?: string; };
 
 type Props<T extends string> = {
   options: Option<T>[];
@@ -60,11 +60,11 @@ export default function RadioGroup<T extends string>({
               {selected && <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: "red" }} />}
             </View>
 
-            {/* Optional icon */}
-            {opt.icon ? <View style={{ marginRight: 8 }}>{opt.icon}</View> : null}
-
             <View style={{ flex: 1 }}>
-              <Text style={{ fontSize: 16, color: "#190D05", fontWeight: "600" }}>{opt.label}</Text>
+              <View className="flex-row gap-2">
+                <Ionicons name={opt.icon} size={20} color={selected ? "red" : "gray"} />
+                <Text style={{ fontSize: 16, color: "#190D05", fontWeight: "600" }}>{opt.label}</Text>
+              </View>
               {opt.subtitle ? (
                 <Text style={{ fontSize: 12, color: "#6E6E6E", marginTop: 2 }}>{opt.subtitle}</Text>
               ) : null}

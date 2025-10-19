@@ -1,20 +1,36 @@
-import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
-
-import { Ionicons } from '@expo/vector-icons';
 import { settingsData } from '@/lib/data';
+import { useClerk, useUser } from '@clerk/clerk-expo';
+import { Ionicons } from '@expo/vector-icons';
+import * as Linking from 'expo-linking';
 import { router } from 'expo-router';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Settings() {
+  const { user } = useUser()
+  const { signOut } = useClerk()
+
+  console.log("user", user);
+
+
+  const handleSignOut = async () => {
+    try {
+      await signOut()
+      Linking.openURL(Linking.createURL('/'))
+    } catch (err) {
+      console.error(JSON.stringify(err, null, 2))
+    }
+  }
   return (
     <GestureHandlerRootView>
       <SafeAreaView className="flex-1 items-center justify-center gap-4 bg-[#FFF] p-2" edges={["top", "left", "right"]}>
         <View className="flex w-full flex-row items-center justify-start gap-2 bg-neutral-200/[0.8] rounded-full p-2">
-          <Ionicons name="person-circle" size={50} color={"gray"} />
-          <View>
-            <Text className="text-3xl font-bold text-black/[0.6]">Aditya John</Text>
-            <Text className="text-md text-black/[0.6]">useremail@gmail.com</Text>
+          <Image src={user?.imageUrl} alt='image' height={50} width={50} className='rounded-full' resizeMode='contain' />
+          {/* <Ionicons name="person-circle" size={50} color={"gray"} /> */}
+          <View >
+            <Text className="text-3xl font-bold text-black/[0.6]">{user?.firstName} {user?.lastName}</Text>
+            <Text className="text-md text-black/[0.6]">{user?.emailAddresses[0].emailAddress}</Text>
           </View>
         </View>
 
@@ -52,7 +68,17 @@ export default function Settings() {
               </TouchableOpacity>
             ))}
           </View>
+
+          <View className='w-full'>
+            <TouchableOpacity
+              activeOpacity={0.6}
+              onPress={handleSignOut}
+              className='bg-neutral-200/[0.6] border border-red-400 p-2 items-center rounded-3xl mt-4'>
+              <Text className='text-red-500 text-3xl font-bold'>LOGOUT</Text>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
+
       </SafeAreaView>
     </GestureHandlerRootView>
   );

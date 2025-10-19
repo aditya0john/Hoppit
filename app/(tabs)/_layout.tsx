@@ -2,6 +2,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import '../../global.css';
 
+// import { NativeTabs, Icon, Label, Badge } from "expo-router/unstable-native-tabs"
+
 export default function TabsLayout() {
     return (
         <Tabs
@@ -39,8 +41,7 @@ export default function TabsLayout() {
                 name="Cart"
                 options={{
                     title: "Cart",
-                    headerTitleStyle: { color: "gray", fontSize: 24 },
-                    headerStyle: { backgroundColor: "white", height: 100 },
+                    headerStyle: { backgroundColor: "white", },
                     headerShown: true,
                     headerTitle: () => (
                         <Ionicons

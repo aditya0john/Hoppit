@@ -5,7 +5,13 @@
     "paths": {
       "@/*": [
         "./*"
-      ]
+      ],
+      "@components/*": [
+        "/components/*"
+      ],
+      "@assets/*": [
+        "/assets/*"
+      ],
     }
   },
   "include": [
@@ -13,6 +19,7 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "nativewind-env.d.ts"
-, "app/Checkout"  ]
+    "nativewind-env.d.ts",
+    "app/Checkout"
+  ]
 }
