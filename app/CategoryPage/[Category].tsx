@@ -63,7 +63,7 @@ function CategoryPage() {
                                         alt="Category image"
                                         height={40}
                                         width={40}
-                                        className={`h-20 w-20 rounded-full bg-[#F6D3D3]/[0.4] object-cover ${selectedCat === data.id ? "border-2 border-red-400" : ""}`}
+                                        className={`h-20 w-20 rounded-full bg-[#F6D3D3]/[0.4] object-cover ${selectedCat === data.id ? "bg-red-400" : "bg-[#F6D3D3]/[0.4]"}`}
                                         resizeMode="cover"
                                     />
                                     <Text className="mt-2 text-center text-xs font-bold text-black/[0.6]">

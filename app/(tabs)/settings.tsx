@@ -73,7 +73,7 @@ export default function Settings() {
             <TouchableOpacity
               activeOpacity={0.6}
               onPress={handleSignOut}
-              className='bg-neutral-200/[0.6] border border-red-400 p-2 items-center rounded-3xl mt-4'>
+              className='border-2 border-red-400 p-2 items-center rounded-3xl mt-4'>
               <Text className='text-red-500 text-3xl font-bold'>LOGOUT</Text>
             </TouchableOpacity>
           </View>

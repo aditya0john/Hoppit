@@ -53,6 +53,67 @@ export const stores = [
   { id: '4', name: 'Store 4', image: require('../assets/images/categories/Sweets.png') },
 ];
 
+export const mostOrdered: Record<string, StoreItem[]> = {
+  items: [
+    {
+      id: 'apple',
+      name: 'Apple',
+      image: require('../assets/images/categories/Fruits/apple.png'),
+      rating: 4.5,
+      quantity: 1,
+      time: '10-15 min',
+      price: 120,
+      per: "kg",
+      tags: ['fresh', 'organic'],
+    },
+    {
+      id: 'pineapple',
+      name: 'pineapple',
+      image: require('../assets/images/categories/Fruits/pineapple.png'),
+      rating: 4.5,
+      quantity: 1,
+      time: '10-15 min',
+      price: 150,
+      per: "kg",
+      tags: ['fresh'],
+    },
+    {
+      id: 'guava',
+      name: 'guava',
+      image: require('../assets/images/categories/Fruits/guava.png'),
+      rating: 4.5,
+      quantity: 1,
+      time: '10-15 min',
+      price: 120,
+      per: "kg",
+      tags: ['fresh'],
+    },
+    {
+      id: 'potato',
+      name: 'Potato',
+      image: require('../assets/images/categories/Vegetables/potato.png'),
+      rating: 4.5,
+      quantity: 1,
+      price: 30,
+      per: "kg",
+      time: '10-15 min',
+      tags: ['fresh'],
+    },
+    {
+      id: 'spinach',
+      name: 'Spinach',
+      price: 40,
+      per: "Gatthi",
+      image: require('../assets/images/categories/Vegetables/spinach.png'),
+      rating: 4.5,
+      quantity: 1,
+      time: '10-15 min',
+      tags: ['fresh', 'leafy'],
+    },
+
+  ]
+}
+
 export const products: Record<string, StoreItem[]> = {
   fruits: [
     {

@@ -27,7 +27,6 @@ export default function TabsLayout() {
                 name="Restaurant"
                 options={{
                     title: 'Restaurant',
-                    href: null,
                     tabBarIcon: ({ focused, color, size }) => (
                         <Ionicons
                             name={`${focused ? 'restaurant' : 'restaurant-outline'}`}

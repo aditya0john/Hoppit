@@ -25,7 +25,10 @@ export default function Cart() {
 
     return (
         <GestureHandlerRootView>
-            <SafeAreaView className={`flex-1 bg-[#FFF] p-2 items-center ${cartItems.length === 0 ? "justify-center" : "justify-start"}`} edges={["left", "right"]}>
+            <SafeAreaView
+                className={`flex-1 bg-[#FFF] p-2 items-center ${cartItems.length === 0 ? "justify-center" : "justify-start"}`}
+                edges={["left", "right"]}
+            >
                 {cartItems.length === 0 ?
                     <View className='flex-row items-center justify-center'>
                         <Text className='text-5xl text-black/[0.4] font-bold'>Empty</Text>
@@ -77,10 +80,17 @@ export default function Cart() {
                                     </View>
                                     <View className='flex-row px-2 justify-between'>
                                         <View className='flex-row gap-2'>
-                                            <Ionicons name='rainy' size={20} color={"gray"} />
+                                            <Ionicons name='thunderstorm' size={20} color={"gray"} />
                                             <Text className='text-md capitalize'>Surge Charges</Text>
                                         </View>
                                         <Text className='text-black/[0.6]'>--</Text>
+                                    </View>
+                                    <View className='flex-row px-2 justify-between'>
+                                        <View className='flex-row gap-2'>
+                                            <Ionicons name='rainy' size={20} color={"gray"} />
+                                            <Text className='text-md capitalize'>Discount</Text>
+                                        </View>
+                                        <Text className='text-black/[0.6]'>Rs 14</Text>
                                     </View>
                                 </View>
 
@@ -88,7 +98,7 @@ export default function Cart() {
 
                                 <View className='flex-row justify-between px-2'>
                                     <Text className='text-2xl font-bold capitalize'>Grand Total</Text>
-                                    <Text className='text-2xl font-bold'>{totalPrice + 14}</Text>
+                                    <Text className='text-2xl text-red-500 font-bold'>{totalPrice + 14}</Text>
                                 </View>
                             </View>
 
@@ -136,9 +146,9 @@ export default function Cart() {
                             <Text className='text-xs text-blue-600 uppercase'>{method}</Text>
                         </View>
                     </View>
-                    <TouchableOpacity onPress={() => router.push("/Checkout")} activeOpacity={0.6} className='w-52 bg-red-500 p-2 rounded-xl flex-row items-center justify-center'>
+                    <TouchableOpacity onPress={() => router.push("/Checkout")} activeOpacity={0.6} className='bg-red-500 p-2 rounded-xl flex-row gap-2 items-center justify-center'>
+                        <Ionicons name='bag-check' size={30} color={"white"} />
                         <Text className='text-3xl font-bold text-white'>Place Order</Text>
-                        <Ionicons name='chevron-forward-outline' size={24} color={"white"} />
                     </TouchableOpacity>
                 </View>}
         </GestureHandlerRootView>

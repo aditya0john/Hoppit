@@ -14,10 +14,10 @@ export default function SettingsLayout() {
             <Stack.Screen
                 name="General"
                 options={{
-                    gestureEnabled: false,
+                    gestureEnabled: true,
                     headerShown: true,
                     headerLeft: () => (
-                        <TouchableOpacity className='px-2' onPress={() => router.push("/(tabs)/Settings")}>
+                        <TouchableOpacity className='px-2' onPress={() => router.back()}>
                             <Ionicons name='chevron-back' size={20} color={"gray"} />
                         </TouchableOpacity>
                     ),
@@ -29,10 +29,10 @@ export default function SettingsLayout() {
             <Stack.Screen
                 name="Orders"
                 options={{
-                    gestureEnabled: false,
+                    gestureEnabled: true,
                     headerShown: true,
                     headerLeft: () => (
-                        <TouchableOpacity className='px-2' onPress={() => router.push("/(tabs)/Settings")}>
+                        <TouchableOpacity className='px-2' onPress={() => router.back()}>
                             <Ionicons name='chevron-back' size={20} color={"gray"} />
                         </TouchableOpacity>
                     ),
@@ -43,11 +43,10 @@ export default function SettingsLayout() {
             <Stack.Screen
                 name="LoginPass"
                 options={{
-                    title: 'Categories',
-                    gestureEnabled: false,
+                    gestureEnabled: true,
                     headerShown: true,
                     headerLeft: () => (
-                        <TouchableOpacity className='px-2' onPress={() => router.push("/(tabs)/Settings")}>
+                        <TouchableOpacity className='px-2' onPress={() => router.back()}>
                             <Ionicons name='chevron-back' size={20} color={"gray"} />
                         </TouchableOpacity>
                     ),
@@ -58,11 +57,10 @@ export default function SettingsLayout() {
             <Stack.Screen
                 name="Complaints"
                 options={{
-                    title: 'Categories',
-                    gestureEnabled: false,
+                    gestureEnabled: true,
                     headerShown: true,
                     headerLeft: () => (
-                        <TouchableOpacity className='px-2' onPress={() => router.push("/(tabs)/Settings")}>
+                        <TouchableOpacity className='px-2' onPress={() => router.back()}>
                             <Ionicons name='chevron-back' size={20} color={"gray"} />
                         </TouchableOpacity>
                     ),
@@ -72,11 +70,10 @@ export default function SettingsLayout() {
             <Stack.Screen
                 name="Account"
                 options={{
-                    title: 'Categories',
-                    gestureEnabled: false,
+                    gestureEnabled: true,
                     headerShown: true,
                     headerLeft: () => (
-                        <TouchableOpacity className='px-2' onPress={() => router.push("/(tabs)/Settings")}>
+                        <TouchableOpacity className='px-2' onPress={() => router.back()}>
                             <Ionicons name='chevron-back' size={20} color={"gray"} />
                         </TouchableOpacity>
                     ),

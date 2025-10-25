@@ -78,8 +78,8 @@ export default function Index() {
 
           {wishList.length > 0 && <WishListItem category='your wishlist' products={wishList} />}
 
-          <FoodItem products={products.fruits} category='Fruits' />
-          <FoodItem products={products.vegetables} category='Vegetables' />
+          <FoodItem products={products.fruits} category='Most Ordered' />
+
         </ScrollView>
 
 

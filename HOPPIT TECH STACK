@@ -1,0 +1,56 @@
+HOPPIT APP TECH STACK :
+
+1. React Native 	- expo and react native to create the app.
+
+2. NativeWind 		- Tailwind to style css on the go.
+
+3. Nativewind UI 	- for components that are sleek and animated.
+
+4. IonIcons 		  - to add icons to the app.
+
+5. expo-haptics 	- to add haptics to touches and taps so that sensory response can be created.
+
+6. Clerk 			    - To let user login using mobile no or email and do it securely.
+
+7. React-native-maps ,Expo-maps, Google Maps API's- these are woek together to create maps that perform visual map, delivery(route real time), and search location.
+
+8. Zeego - 
+
+9. RazorPay 		  - To add payment services to the application, Supabase.
+
+10. Zustand 		  - to create Hooks for cart, wishlist, usersData and more that is accessible across the application.
+
+11. Supabase 		  - Backend SQL data storage option for asynchronus data (login user details from clerk, inventory data, delivery data, order data, invoice,
+                     user settings and more).
+
+12. Firebase 		   - Backend data which is to be synced in real time such as delivery status, route tracking, timestamps.
+
+13. Elastic Search 	- Implemented over inventory to quickly sort it as per user search using parameters such as tags, names, filters.
+
+
+
+HOPPIT BACKEND ADMIN PANEL :
+
+1. SES for mailing
+2. React/Next for frontend
+3. Clerk
+4. React-hot-toasts
+5. Supabase
+6. Recharts for charts
+
+
+COLOR PALLETE : 
+
+Background (Main): #FFF (White).​
+
+Primary Component: #F6D3D3 (Blush Pink).​
+
+Accent (Highlight): #F7B2B7 (A slightly brighter pink for buttons and icons).​​
+
+Dark Neutral (Text/Icons): #636363 (Deep gray for readability).​
+
+Contrast Accent: #A3B18A (Muted sage green for success states or subtle accent).​
+
+Alert Accent: #FFEB99 (Pastel yellow for warnings/messages).​
+
+Divider/Border: #E7E8EA (Very light gray for lines/dividers).​
