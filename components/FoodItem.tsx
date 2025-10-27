@@ -60,28 +60,26 @@ export default function FoodItem({ products, category }: { products: StoreItem[]
                     resizeMode='contain'
                     className='h-20 w-full rounded-t-xl' />
                   <Text className="text-lg font-bold capitalize text-black/[0.6]">{data.name}</Text>
-                  <Text className="text-xs font-bold capitalize text-yellow-600">{data.price}</Text>
-                  <View className='flex-row items-center'>
-                    <Ionicons name='time-outline' color={"red"} size={12} />
-                    <Text className="text-xs font-bold capitalize text-black/[0.6]">{data.time}</Text>
-                  </View>
-                  {cartItem ?
-                    <View className='flex-row items-center justify-center gap-1 bg-red-300 rounded-xl px-1'>
-                      <TouchableOpacity onPress={() => decreaseQty(data.name)} className='mt-1 flex-row items-center justify-center'>
-                        <Ionicons name='remove' size={14} color={"red"} />
+                  <Text className="text-xs font-bold capitalize text-yellow-600">Rs {data.price}</Text>
+                  
+                  {
+                    cartItem ?
+                      <View className='flex-row items-center justify-center gap-1 bg-red-200 rounded-xl px-1'>
+                        <TouchableOpacity onPress={() => decreaseQty(data.name)} className='mt-1 flex-row items-center justify-center'>
+                          <Ionicons name='remove' size={14} color={"red"} />
+                        </TouchableOpacity>
+
+                        <Text className='text-black/[0.6] text-lg'>{cartItem.quantity}</Text>
+
+                        <TouchableOpacity onPress={() => increaseQty(data.name)} className='mt-1 flex-row items-center justify-center'>
+                          <Ionicons name='add' size={14} color={"red"} />
+                        </TouchableOpacity>
+                      </View>
+
+                      :
+                      <TouchableOpacity onPress={() => handleCart(data)} className='flex-row bg-red-200 px-2 rounded-xl items-center mt-1'>
+                        <Text className='text-red-500'>+</Text><Ionicons name="cart" size={20} color={"red"} />
                       </TouchableOpacity>
-
-                      <Text className='text-black/[0.6] text-xl'>{cartItem.quantity}</Text>
-
-                      <TouchableOpacity onPress={() => increaseQty(data.name)} className='mt-1 flex-row items-center justify-center'>
-                        <Ionicons name='add' size={14} color={"red"} />
-                      </TouchableOpacity>
-                    </View>
-
-                    :
-                    <TouchableOpacity onPress={() => handleCart(data)} className='bg-red-200 px-2 py-1 rounded-xl items-center mt-1'>
-                      <Text className='text-black/[0.6] text-xs font-bold'>Add to Cart</Text>
-                    </TouchableOpacity>
                   }
                 </View>
               </View>

@@ -4,10 +4,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { Animated, Text, TouchableOpacity } from "react-native";
 
 const PLACEHOLDERS = [
-  "cars...",
-  "bikes...",
-  "furniture...",
-  "mobiles...",
+  "fruits...",
+  "snacks...",
+  "dairy products...",
+  "vegetables...",
+  "Pizza...",
+  "Burger...",
 ];
 
 export default function SearchBar() {
@@ -51,15 +53,14 @@ export default function SearchBar() {
         color={'red'}
         className="absolute left-2"
       />
-      <Text className='text-xs text-black/[0.6]'>Search for </Text>
-      <Animated.Text
-        style={{
-          opacity: fadeAnim,
-        }}
-        className={`text-black/[0.6] text-xs`}
-      >
-        {PLACEHOLDERS[index]}
-      </Animated.Text>
+      <Text className='text-xs text-black/[0.6]'>Hoppit your
+        <Animated.Text
+          style={{
+            opacity: fadeAnim,
+          }}>
+          {" " + PLACEHOLDERS[index]}
+        </Animated.Text>
+      </Text>
     </TouchableOpacity>
   )
 }

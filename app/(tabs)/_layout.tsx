@@ -12,7 +12,7 @@ export default function TabsLayout() {
                 tabBarActiveTintColor: 'red',
                 tabBarInactiveTintColor: "#6E6E6E8a",
                 tabBarIconStyle: { color: '#190D05' },
-                tabBarStyle: { backgroundColor: '#F6D3D34a', borderTopWidth: 0, maxHeight: 70 },
+                tabBarStyle: { backgroundColor: '#F6D3D32a', borderTopWidth: 0, maxHeight: 70 },
             }}>
             <Tabs.Screen
                 name="index"

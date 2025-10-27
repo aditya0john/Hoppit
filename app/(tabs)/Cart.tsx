@@ -4,7 +4,7 @@ import { useCartStore } from '@/store/useCartStore';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { GestureHandlerRootView, TextInput } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -38,6 +38,16 @@ export default function Cart() {
                         <ScrollView contentContainerStyle={{ display: "flex", flexDirection: "column", gap: 10 }} className='h-full w-full'>
                             <CartItem products={cartItems} />
 
+                            <View className='w-full flex-row justify-between bg-[#F6D3D3]/[0.6] p-4 rounded-2xl'>
+                                <View className='flex-row gap-2'>
+                                    <Ionicons name='time-outline' color={"red"} size={30} />
+                                    <Text className='text-2xl text-red-500 font-semibold'>Delivery Time</Text>
+                                </View>
+                                <View className='flex-row items-center'>
+                                    <Text className="text-xl font-bold capitalize text-red-500">10-15 mins</Text>
+                                </View>
+                            </View>
+
                             <View className='w-full flex-row justify-between bg-neutral-200/[0.6] p-4 rounded-2xl'>
                                 <View className='flex-row gap-2'>
                                     <Ionicons name='ticket-outline' size={30} color={"gray"} />
@@ -52,42 +62,42 @@ export default function Cart() {
                                 <View className='gap-1'>
                                     <View className='flex-row px-2 justify-between'>
                                         <View className='flex-row gap-2'>
-                                            <Ionicons name='cash' size={20} color={"gray"} />
+                                            <Ionicons name='cash' size={20} color={"darkgray"} />
                                             <Text className='text-md capitalize'>items Total</Text>
                                         </View>
                                         <Text className='text-black/[0.6]'>Rs {totalPrice}</Text>
                                     </View>
                                     <View className='flex-row px-2 justify-between'>
                                         <View className='flex-row gap-2'>
-                                            <Ionicons name='bicycle' size={20} color={"gray"} />
+                                            <Ionicons name='bicycle' size={20} color={"darkgray"} />
                                             <Text className='text-md capitalize'>Delivery Charges</Text>
                                         </View>
                                         <Text className='text-black/[0.6]'>Rs 14</Text>
                                     </View>
                                     <View className='flex-row px-2 justify-between'>
                                         <View className='flex-row gap-2'>
-                                            <Ionicons name='bag' size={20} color={"gray"} />
+                                            <Ionicons name='bag' size={20} color={"darkgray"} />
                                             <Text className='text-md capitalize'>handling Charges</Text>
                                         </View>
                                         <Text className='text-black/[0.6]'>Rs 7</Text>
                                     </View>
                                     <View className='flex-row px-2 justify-between'>
                                         <View className='flex-row gap-2'>
-                                            <Ionicons name='pricetag' size={20} color={"gray"} />
+                                            <Ionicons name='pricetag' size={20} color={"darkgray"} />
                                             <Text className='text-md capitalize'>Offers and Discount</Text>
                                         </View>
                                         <Text className='text-black/[0.6]'>Rs 7</Text>
                                     </View>
                                     <View className='flex-row px-2 justify-between'>
                                         <View className='flex-row gap-2'>
-                                            <Ionicons name='thunderstorm' size={20} color={"gray"} />
+                                            <Ionicons name='thunderstorm' size={20} color={"darkgray"} />
                                             <Text className='text-md capitalize'>Surge Charges</Text>
                                         </View>
                                         <Text className='text-black/[0.6]'>--</Text>
                                     </View>
                                     <View className='flex-row px-2 justify-between'>
                                         <View className='flex-row gap-2'>
-                                            <Ionicons name='rainy' size={20} color={"gray"} />
+                                            <Ionicons name='rainy' size={20} color={"darkgray"} />
                                             <Text className='text-md capitalize'>Discount</Text>
                                         </View>
                                         <Text className='text-black/[0.6]'>Rs 14</Text>
@@ -97,18 +107,17 @@ export default function Cart() {
                                 <View className='h-0 w-full border border-black/[0.2]' />
 
                                 <View className='flex-row justify-between px-2'>
-                                    <Text className='text-2xl font-bold capitalize'>Grand Total</Text>
-                                    <Text className='text-2xl text-red-500 font-bold'>{totalPrice + 14}</Text>
+                                    <Text className='text-2xl text-black/[0.6] font-bold capitalize'>Grand Total</Text>
+                                    <Text className='text-2xl text-red-500 font-bold'>Rs {totalPrice + 14}</Text>
                                 </View>
                             </View>
-
 
                             <View className='bg-neutral-200/[0.6] gap-4 p-4 rounded-2xl w-full'>
                                 <Text className='text-2xl font-bold'>Delivery Address</Text>
                                 <View className='flex-row justify-between items-center'>
                                     <View>
-                                        <Text className='text-lg text-black/[0.8] font-bold capitalize'>Meeting point</Text>
-                                        <Text className='text-xs text-black/[0.6] capitalize'>andheri gali, shaitan mohalla, kabristan ke paas</Text>
+                                        <Text className='text-lg text-black/[0.8] font-bold capitalize'>Vikasnagar</Text>
+                                        <Text className='text-xs text-black/[0.6] capitalize'>mandi chowk, near kotwali</Text>
                                     </View>
                                     <Text className='text-xs text-blue-600 capitalize'>change address</Text>
                                 </View>
@@ -118,15 +127,6 @@ export default function Cart() {
                             <View className='flex-col gap-4 bg-neutral-200/[0.6] p-4 rounded-2xl w-full mb-10'>
                                 <Text className='text-2xl font-bold'>Payment options</Text>
                                 <RadioGroup onChange={(e) => setMethod(e)} value={method} options={options} />
-                                {(method == "upi" || method == "card") &&
-                                    <View className="relative flex-row items-center w-[100%]">
-                                        <TextInput
-                                            placeholder={`Enter ${method} details`}
-                                            style={{ height: 42 }}
-                                            className="rounded-xl bg-[#F6D3D3]/[0.6] pl-7 text-black text-lg w-full"
-                                            placeholderTextColor={'#0000008a'} />
-                                    </View>
-                                }
                             </View>
                         </ScrollView>
                     </View>
@@ -135,22 +135,25 @@ export default function Cart() {
 
             {cartItems.length > 0 &&
                 <View className='bg-[#FFF] flex-row items-center justify-between p-2'>
-                    <View className='items-center px-2 w-52'>
+                    <View className='items-center px-2'>
                         <View className='flex-row items-center gap-2'>
-                            <Ionicons name='cash' size={20} color={"gray"} />
                             <Text className='font-bold text-xl text-black/[0.8]'>
                                 Pay <Text className=' text-red-500'>Rs {totalPrice}</Text>
                             </Text>
                         </View>
-                        <View className='bg-neutral-200/[0.6] p-2 rounded-xl flex-row gap-2 items-center justify-center w-[50%]'>
+                        <View className='bg-neutral-200/[0.6] p-2 rounded-xl flex-row gap-2 items-center justify-center'>
+                            <Ionicons name='cash' size={20} color={"gray"} />
                             <Text className='text-xs text-blue-600 uppercase'>{method}</Text>
                         </View>
                     </View>
+
                     <TouchableOpacity onPress={() => router.push("/Checkout")} activeOpacity={0.6} className='bg-red-500 p-2 rounded-xl flex-row gap-2 items-center justify-center'>
-                        <Ionicons name='bag-check' size={30} color={"white"} />
+                        <Image source={require("@/assets/images/LOGO2.png")} alt='Hoppit-LOGO' height={20} width={40} resizeMode="contain" className='h-10 w-10' />
+                        {/* <Ionicons name='bag-check' size={30} color={"white"} /> */}
                         <Text className='text-3xl font-bold text-white'>Place Order</Text>
                     </TouchableOpacity>
-                </View>}
+                </View>
+            }
         </GestureHandlerRootView>
     );
 }

@@ -53,6 +53,5 @@ export default function CartItem({ products }: { products: StoreItem[] }) {
                 </View>
             ))}
         </View>
-
     );
 }

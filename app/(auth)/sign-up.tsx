@@ -1,13 +1,14 @@
-import { useSignUp } from '@clerk/clerk-expo'
+import { useSignIn, useSignUp } from '@clerk/clerk-expo'
 import { Ionicons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import { useState } from 'react'
-import { Image, Keyboard, KeyboardAvoidingView, Platform, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
+import { ActivityIndicator, Image, Keyboard, KeyboardAvoidingView, Platform, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function SignUp() {
   const { isLoaded, signUp, setActive } = useSignUp()
+  const { signIn } = useSignIn()
   const router = useRouter()
 
   const [user, setUser] = useState({ FirstName: "", LastName: "", Username: "" });
@@ -15,12 +16,14 @@ export default function SignUp() {
   const [phone, setPhone] = useState("");
   const [pendingVerification, setPendingVerification] = useState(false)
   const [code, setCode] = useState('')
-
+  const [isSignUpFlow, setIsSignUpFlow] = useState(true);
+  const [verificationSent, setVerificationSent] = useState(false);
 
   const onSignUpPress = async () => {
     if (!isLoaded) return;
 
     try {
+      setVerificationSent(true);
       const usePhone = emailAddress.trim() === "";
 
       const userData = {
@@ -31,23 +34,31 @@ export default function SignUp() {
 
       // Create only one field
       if (usePhone) {
-        await signUp.create({
-          ...userData,
-          phoneNumber: phone,
-        });
-
+        await signUp.create({ ...userData, phoneNumber: phone, });
         await signUp.preparePhoneNumberVerification({ strategy: "phone_code" });
       } else {
-        await signUp.create({
-          ...userData,
-          emailAddress: emailAddress,
-        });
+        const existingSignIn = await signIn?.create({ identifier: emailAddress });
 
+        if (existingSignIn?.status === "needs_first_factor") {
+          // Existing user → send login code
+          await signIn?.prepareFirstFactor({
+            strategy: "email_code",
+            emailAddressId: existingSignIn.supportedFirstFactors[0].emailAddressId,
+          });
+
+          setIsSignUpFlow(false);
+          setVerificationSent(false);
+          setPendingVerification(true);
+          return;
+        }
+
+        await signUp.create({ ...userData, emailAddress: emailAddress, });
         await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
       }
-
+      setVerificationSent(false);
       setPendingVerification(true);
     } catch (err) {
+      setVerificationSent(false);
       console.error("SignUp error:", JSON.stringify(err, null, 2));
     }
   };
@@ -59,19 +70,37 @@ export default function SignUp() {
     const usePhone = emailAddress === ""
 
     try {
-      const verificationAttempt = usePhone
-        ? await signUp.attemptPhoneNumberVerification({ code })
-        : await signUp.attemptEmailAddressVerification({ code });
+      if (isSignUpFlow) {
+        setVerificationSent(true);
+        const verificationAttempt = usePhone
+          ? await signUp.attemptPhoneNumberVerification({ code })
+          : await signUp.attemptEmailAddressVerification({ code });
 
-      if (verificationAttempt.status === "complete") {
-        await setActive({ session: verificationAttempt.createdSessionId });
-        router.replace("/"); // go to main app
-        return;
+        if (verificationAttempt.status === "complete") {
+          await setActive({ session: verificationAttempt.createdSessionId });
+          router.replace("/"); // go to main app
+          return;
+        }
+        setVerificationSent(false);
+        console.log("Verification incomplete:", verificationAttempt);
+      } else {
+        setVerificationSent(true);
+        const signInAttempt = await signIn?.attemptFirstFactor({
+          strategy: "email_code",
+          code,
+        });
+
+        if (signInAttempt?.status === "complete") {
+          await setActive({ session: signInAttempt.createdSessionId });
+          router.replace("/");
+        } else {
+          console.log("Signin verification incomplete:", signInAttempt);
+        }
+        setVerificationSent(false);
       }
-
-      console.log("Verification incomplete:", verificationAttempt);
-    } catch (err) {
-      console.error("Verify error:", JSON.stringify(err, null, 2));
+    } catch (error) {
+      setVerificationSent(false);
+      console.error("Verify error:", JSON.stringify(error, null, 2));
     }
   };
 
@@ -85,7 +114,7 @@ export default function SignUp() {
 
   if (pendingVerification) {
     return (
-      <SafeAreaView className='flex-1 items-center justify-between gap-6 bg-[#FCF5E5]' edges={["top", "left", "right"]}>
+      <SafeAreaView className='flex-1  justify-between gap-6 bg-[#FCF5E5]' edges={["top", "left", "right"]}>
         <View className='items-center'>
           <Image
             source={require("../../assets/images/LOGO_LIGHT.png")}
@@ -102,7 +131,7 @@ export default function SignUp() {
           keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
         >
           <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-            <View className='items-center justify-start h-full w-full bg-white p-4 rounded-3xl relative'>
+            <View className='flex-1 min-h-[70%] items-center justify-start bg-white p-4 rounded-3xl relative'>
               <View className='items-center justify-center gap-6 w-full'>
                 <View className='items-center'>
                   <Text className='text-5xl text-[#FFBD00] uppercase w-full font-bold'>verification</Text>
@@ -120,7 +149,13 @@ export default function SignUp() {
                   />
 
                   <TouchableOpacity onPress={onVerifyPress} className='bg-green-500 p-4 h-16 rounded-3xl justify-center'>
-                    <Ionicons name="checkmark" size={30} color="white" />
+                    {
+                      verificationSent ? <View className="flex-1 justify-center items-center">
+                        <ActivityIndicator size="large" color="white" />
+                      </View>
+                        :
+                        <Ionicons name="checkmark" size={30} color="white" />
+                    }
                   </TouchableOpacity>
                 </View>
               </View>
@@ -154,89 +189,98 @@ export default function SignUp() {
           keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
         >
           <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-            <ScrollView
-              contentContainerStyle={{ flexGrow: 1, justifyContent: "space-between" }}
-              keyboardShouldPersistTaps="handled"
-            >
-              <View className='items-center justify-start h-full w-full gap-6 bg-white p-4 rounded-t-3xl'>
-                <View className='items-center'>
-                  <Text className='text-5xl text-[#FFBD00] uppercase w-full font-bold'>HOPPIT</Text>
-                </View>
-
-                <View className='gap-4 w-full items-center justify-center'>
-                  <View className='flex-row items-center justify-center gap-2'>
-                    <View className='bg-neutral-200/[0.6] rounded-3xl p-4 h-16 items-center justify-center'>
-                      <Text className='text-2xl text-center font-semibold text-black/[0.2]'>+91 -</Text>
-                    </View>
-                    <TextInput
-                      value={phone}
-                      onChangeText={setPhone}
-                      textContentType="telephoneNumber"
-                      placeholder="_ _ _ _ _ _ _ _ _ _"
-                      keyboardType="phone-pad"
-                      placeholderTextColor={"darkgray"}
-                      className='bg-neutral-200/[0.6] rounded-3xl p-4 w-[70%] h-16 text-2xl text-center text-black/[0.6]'
-                    />
+            <View className='bg-white rounded-t-3xl p-4'>
+              <ScrollView
+                contentContainerStyle={{ flexGrow: 1, justifyContent: "space-between" }}
+                keyboardShouldPersistTaps="handled"
+              >
+                <View className='items-center justify-start h-full w-full gap-6'>
+                  <View className='items-center'>
+                    <Text className='text-5xl text-[#FFBD00] uppercase w-full font-bold'>HOPPIT</Text>
                   </View>
 
-                  <Text className="text-2xl font-semibold text-black/[0.4] uppercase">OR</Text>
-
-                  <View className='w-full items-center gap-4'>
-                    <TextInput
-                      value={emailAddress}
-                      onChangeText={setEmailAddress}
-                      textContentType="emailAddress"
-                      placeholder="email@example.com"
-                      keyboardType="email-address"
-                      autoCapitalize="none"
-                      placeholderTextColor={"darkgray"}
-                      className='bg-neutral-200/[0.6] rounded-3xl p-4 w-[100%] h-16 text-xl text-center font-semibold italic text-black/[0.6]'
-                    />
-
-                    <View className='flex-row gap-2'>
+                  <View className='gap-4 w-full items-center justify-center'>
+                    <View className='flex-row items-center justify-center gap-2'>
+                      <View className='bg-neutral-200/[0.6] rounded-xl p-4 h-16 items-center justify-center'>
+                        <Text className='text-2xl text-center font-semibold text-black/[0.2]'>+91 -</Text>
+                      </View>
                       <TextInput
-                        value={user.FirstName}
-                        onChangeText={(text) => setUser((prev) => ({ ...prev, FirstName: text }))}
-                        textContentType="name"
-                        placeholder="First Name"
-                        keyboardType="email-address"
-                        autoCapitalize="none"
+                        value={phone}
+                        onChangeText={setPhone}
+                        textContentType="telephoneNumber"
+                        placeholder="_ _ _ _ _ _ _ _ _ _"
+                        keyboardType="phone-pad"
                         placeholderTextColor={"darkgray"}
-                        className='bg-neutral-200/[0.6] rounded-3xl p-4 w-[50%] h-16 text-xl text-center font-semibold italic text-black/[0.6]'
-                      />
-                      <TextInput
-                        value={user.LastName}
-                        onChangeText={(text) => setUser((prev) => ({ ...prev, LastName: text }))}
-                        textContentType="name"
-                        placeholder="Last Name"
-                        keyboardType="email-address"
-                        autoCapitalize="none"
-                        placeholderTextColor={"darkgray"}
-                        className='bg-neutral-200/[0.6] rounded-3xl p-4 w-[50%] h-16 text-xl text-center font-semibold italic text-black/[0.6]'
+                        className='bg-neutral-200/[0.6] rounded-xl p-4 w-[70%] h-16 text-2xl text-center text-black/[0.6]'
                       />
                     </View>
 
-                    <TextInput
-                      value={user.Username}
-                      onChangeText={(text) => setUser((prev) => ({ ...prev, Username: text }))}
-                      textContentType="name"
-                      placeholder="username *dont use spaces*"
-                      keyboardType="default"
-                      autoCapitalize="none"
-                      placeholderTextColor={"darkgray"}
-                      className='bg-neutral-200/[0.6] rounded-3xl p-4 w-[100%] h-16 text-xl text-center font-semibold italic text-black/[0.6]'
-                    />
+                    <Text className="text-2xl font-semibold text-black/[0.4] uppercase">OR</Text>
+
+                    <View className='w-full items-center gap-4'>
+                      <TextInput
+                        value={emailAddress}
+                        onChangeText={setEmailAddress}
+                        textContentType="emailAddress"
+                        placeholder="your_email_here@example.com"
+                        keyboardType="email-address"
+                        placeholderTextColor={"darkgray"}
+                        className='bg-neutral-200/[0.6] rounded-xl p-4 w-[100%] h-16 text-xl text-center font-semibold italic text-black/[0.6]'
+                      />
+
+                      <View className='flex-row gap-2'>
+                        <TextInput
+                          value={user.FirstName}
+                          onChangeText={(text) => setUser((prev) => ({ ...prev, FirstName: text }))}
+                          textContentType="name"
+                          placeholder="First Name"
+                          keyboardType="default"
+                          autoCapitalize="none"
+                          placeholderTextColor={"darkgray"}
+                          className='bg-neutral-200/[0.6] rounded-xl p-4 w-[50%] h-16 text-xl text-center font-semibold italic text-black/[0.6]'
+                        />
+                        <TextInput
+                          value={user.LastName}
+                          onChangeText={(text) => setUser((prev) => ({ ...prev, LastName: text }))}
+                          textContentType="name"
+                          placeholder="Last Name"
+                          keyboardType="default"
+                          autoCapitalize="none"
+                          placeholderTextColor={"darkgray"}
+                          className='bg-neutral-200/[0.6] rounded-xl p-4 w-[50%] h-16 text-xl text-center font-semibold italic text-black/[0.6]'
+                        />
+                      </View>
+
+                      <TextInput
+                        value={user.Username}
+                        onChangeText={(text) => setUser((prev) => ({ ...prev, Username: text }))}
+                        textContentType="name"
+                        placeholder="username *dont use spaces*"
+                        keyboardType="default"
+                        autoCapitalize="none"
+                        placeholderTextColor={"darkgray"}
+                        className='bg-neutral-200/[0.6] rounded-xl p-4 w-[100%] h-16 text-xl text-center font-semibold italic text-black/[0.6]'
+                      />
+                    </View>
                   </View>
                 </View>
-              </View>
-            </ScrollView>
+              </ScrollView>
+            </View>
           </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
 
         <TouchableOpacity onPress={onSignUpPress} className='bg-green-500 p-4 rounded-3xl absolute bottom-10 right-5'>
-          <Text className='text-white font-bold text-4xl'>Sign In</Text>
+          <Text className='text-white font-bold text-4xl'>
+            {
+              verificationSent ?
+                <View className="flex-1 justify-center items-center">
+                  <ActivityIndicator size="large" color="white" />
+                </View>
+                :
+                "Sign In"
+            }
+          </Text>
         </TouchableOpacity>
-
       </SafeAreaView>
     </GestureHandlerRootView>
   )

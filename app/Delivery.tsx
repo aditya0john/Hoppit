@@ -110,59 +110,61 @@ export default function Delivery() {
             </View>
           </View>
 
-          {orderAccepted && <View>
-            <View className='flex-row justify-around mt-4 bg-neutral-200/[0.6] p-4 rounded-2xl'>
-              {stages.map((stage, i) => (
-                <View key={i}>
-                  <View className='flex-col gap-2 items-center'>
-                    <Text className={`text-md font-bold ${stageReached >= i ? "text-red-400/[0.8]" : "text-red-400/[0.2]"} `}>{stage}</Text>
-                    <View className={`h-2 w-20 rounded-full ${stageReached >= i ? "bg-red-500/[0.8]" : "bg-red-500/[0.1]"}`} />
+          {
+            orderAccepted && <View className='mb-10'>
+              <View className='flex-row justify-around mt-4 bg-neutral-200/[0.6] p-4 rounded-2xl'>
+                {stages.map((stage, i) => (
+                  <View key={i}>
+                    <View className='flex-col gap-2 items-center'>
+                      <Text className={`text-md font-bold ${stageReached >= i ? "text-red-400/[0.8]" : "text-red-400/[0.2]"} `}>{stage}</Text>
+                      <View className={`h-2 w-20 rounded-full ${stageReached >= i ? "bg-red-500" : "bg-red-500/[0.1]"}`} />
+                    </View>
+                  </View>
+                ))}
+              </View>
+
+              <View className='flex-col gap-2 my-4 bg-neutral-200/[0.6] p-2 rounded-2xl'>
+                <View
+                  className='flex-row items-center justify-between'>
+                  <View className='flex-row items-center gap-2'>
+                    <Image source={require("../assets/images/HoppitHero.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-14 w-14 rounded-full bg-white' />
+                    <View>
+                      <Text className='text-black/[0.4] font-bold text-xs capitalize'>your hoppit hero</Text>
+                      <Text className='text-red-400 font-bold text-xl capitalize w-full'>Dhananjay</Text>
+                    </View>
+                  </View>
+                  <View className='flex-row gap-4'>
+                    <TouchableOpacity
+                      onPress={CallHoppitHero}
+                      activeOpacity={0.6}
+                      className='bg-black/[0.1] p-1 rounded-full'>
+                      <Ionicons name='call' size={24} color={"#0000004a"} className='p-1' />
+                    </TouchableOpacity>
                   </View>
                 </View>
-              ))}
-            </View>
 
-            <View className='flex-col gap-2 my-4 bg-neutral-200/[0.6] p-2 rounded-2xl'>
-              <View
-                className='flex-row items-center justify-between'>
+                <View className='w-full h-0 border border-black/[0.1]' />
                 <View className='flex-row items-center gap-2'>
-                  <Image source={require("../assets/images/HoppitHero.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-14 w-14 rounded-full bg-white' />
+                  <Image source={require("../assets/images/HoppitStore.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-14 w-14 rounded-full bg-white' />
                   <View>
-                    <Text className='text-black/[0.4] font-bold text-xs capitalize'>your hoppit hero</Text>
-                    <Text className='text-red-400 font-bold text-xl capitalize w-full'>Dhananjay</Text>
+                    <Text className='text-black/[0.4] font-bold text-xs capitalize'>store</Text>
+                    <Text className='text-red-400 font-bold text-xl w-full'>Hoppit Store</Text>
                   </View>
                 </View>
-                <View className='flex-row gap-4'>
-                  <TouchableOpacity
-                    onPress={CallHoppitHero}
-                    activeOpacity={0.6}
-                    className='bg-black/[0.1] p-1 rounded-full'>
-                    <Ionicons name='call' size={24} color={"#0000004a"} className='p-1' />
-                  </TouchableOpacity>
-                </View>
-              </View>
 
-              <View className='w-full h-0 border border-black/[0.1]' />
-              <View className='flex-row items-center gap-2'>
-                <Image source={require("../assets/images/HoppitStore.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-14 w-14 rounded-full bg-white' />
-                <View>
-                  <Text className='text-black/[0.4] font-bold text-xs capitalize'>store</Text>
-                  <Text className='text-red-400 font-bold text-xl w-full'>Hoppit Store</Text>
-                </View>
-              </View>
+                <View className='w-full h-0 border border-black/[0.1]' />
 
-              <View className='w-full h-0 border border-black/[0.1]' />
-
-              <View className='flex-row items-center gap-2'>
-                <Image source={require("../assets/images/HoppitLocation.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-14 w-14 rounded-full bg-white' />
-                <View>
-                  <Text className='text-black/[0.4] font-bold text-xs capitalize'>order address</Text>
-                  <Text className='text-red-400 font-bold text-xl capitalize w-full'>Meeting point</Text>
-                  <Text className='text-[#6E6E6E]/[0.8] font-sans text-xs -mt-1'>andheri gali, shaitaan moholla</Text>
+                <View className='flex-row items-center gap-2'>
+                  <Image source={require("../assets/images/HoppitLocation.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-14 w-14 rounded-full bg-white' />
+                  <View>
+                    <Text className='text-black/[0.4] font-bold text-xs capitalize'>order address</Text>
+                    <Text className='text-red-400 font-bold text-xl capitalize w-full'>viakasnagar</Text>
+                    <Text className='text-[#6E6E6E]/[0.8] font-sans text-xs -mt-1 capitalize' numberOfLines={1}>mandi chowk, near kotwali</Text>
+                  </View>
                 </View>
               </View>
             </View>
-          </View>}
+          }
         </ScrollView>
       </SafeAreaView>
     </GestureHandlerRootView>

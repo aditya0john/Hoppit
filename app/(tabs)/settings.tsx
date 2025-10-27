@@ -11,15 +11,14 @@ export default function Settings() {
   const { user } = useUser()
   const { signOut } = useClerk()
 
-  console.log("user", user);
-
+  // console.log("user", user);
 
   const handleSignOut = async () => {
     try {
-      await signOut()
-      Linking.openURL(Linking.createURL('/'))
+      await signOut();
+      Linking.openURL(Linking.createURL('/'));
     } catch (err) {
-      console.error(JSON.stringify(err, null, 2))
+      console.error(JSON.stringify(err, null, 2));
     }
   }
   return (
@@ -29,13 +28,13 @@ export default function Settings() {
           <Image src={user?.imageUrl} alt='image' height={50} width={50} className='rounded-full' resizeMode='contain' />
           {/* <Ionicons name="person-circle" size={50} color={"gray"} /> */}
           <View >
-            <Text className="text-3xl font-bold text-black/[0.6]">{user?.firstName} {user?.lastName}</Text>
+            <Text className="text-3xl font-bold text-black/[0.6]" numberOfLines={1}>{user?.firstName} {user?.lastName}</Text>
             <Text className="text-md text-black/[0.6]">{user?.emailAddresses[0].emailAddress}</Text>
           </View>
         </View>
 
         <ScrollView decelerationRate={'fast'} className="w-full flex-1">
-          <View className="overflow-hidden bg-neutral-200/[0.6] rounded-3xl">
+          <View className="overflow-hidden bg-neutral-200/[0.6] rounded-2xl">
             {settingsData.General.map((data) => (
               <TouchableOpacity
                 key={data.id}
@@ -52,7 +51,7 @@ export default function Settings() {
             ))}
           </View>
 
-          <View className="mt-4 overflow-hidden bg-neutral-200/[0.6] rounded-3xl">
+          <View className="mt-4 overflow-hidden bg-neutral-200/[0.6] rounded-2xl">
             {settingsData.Account.map((data) => (
               <TouchableOpacity
                 key={data.id}
@@ -73,7 +72,7 @@ export default function Settings() {
             <TouchableOpacity
               activeOpacity={0.6}
               onPress={handleSignOut}
-              className='border-2 border-red-400 p-2 items-center rounded-3xl mt-4'>
+              className='bg-red-200 border border-red-400 p-2 items-center rounded-2xl mt-4'>
               <Text className='text-red-500 text-3xl font-bold'>LOGOUT</Text>
             </TouchableOpacity>
           </View>

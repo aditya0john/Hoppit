@@ -55,23 +55,22 @@ export default function Index() {
         </View>
 
         <ScrollView>
-          <View className='flex-row items-center gap-2 mt-2'>
+          <View className='flex-row items-center gap-2 mt-2 w-full '>
             <TouchableOpacity
               onPress={() => router.push("/SearchPage")}
               activeOpacity={0.8}
-              className='bg-[#F6D3D3]/[0.6] py-1 rounded-xl flex-row items-center justify-start'>
+              className='border border-[#F6D3D3] py-1 rounded-xl flex-row items-center justify-start'>
               <Image source={require("../../assets/images/location.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-10 w-10' />
-              <View className='flex-row items-center'>
+              <View className='flex-row items-center justify-between'>
                 <View>
-                  <Text className='text-red-400 font-bold text-lg capitalize'>Meeting point</Text>
-                  <Text className='text-[#6E6E6E]/[0.8] font-sans text-xs -mt-1'>andheri gali, shaitaan moholla</Text>
+                  <Text className='text-red-400 font-bold text-lg capitalize'>Vikasnagar</Text>
+                  <Text className='text-[#6E6E6E]/[0.8] font-sans text-xs -mt-1 capitalize' numberOfLines={1}>mandi chowk, near kotwali</Text>
                 </View>
                 <Ionicons name='chevron-down' size={14} color={"black"} className='p-1' />
               </View>
             </TouchableOpacity>
 
             <SearchBar />
-
           </View>
 
           <CategoryCarousel />
@@ -79,7 +78,6 @@ export default function Index() {
           {wishList.length > 0 && <WishListItem category='your wishlist' products={wishList} />}
 
           <FoodItem products={products.fruits} category='Most Ordered' />
-
         </ScrollView>
 
 

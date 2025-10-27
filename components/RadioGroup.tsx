@@ -1,6 +1,6 @@
 // components/RadioGroup.tsx
 import React from "react";
-import { View, Text, TouchableOpacity, AccessibilityRole } from "react-native";
+import { View, Text, TouchableOpacity, AccessibilityRole, TextInput } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 
@@ -62,13 +62,24 @@ export default function RadioGroup<T extends string>({
 
             <View style={{ flex: 1 }}>
               <View className="flex-row gap-2">
-                <Ionicons name={opt.icon} size={20} color={selected ? "red" : "gray"} />
-                <Text style={{ fontSize: 16, color: "#190D05", fontWeight: "600" }}>{opt.label}</Text>
+                <Ionicons name={opt.icon} size={20} color={selected ? "red" : "darkgray"} />
+                <Text style={{ fontSize: 16, color: selected ? "#190D05" : "#190D056a", fontWeight: "600" }}>{opt.label}</Text>
               </View>
               {opt.subtitle ? (
                 <Text style={{ fontSize: 12, color: "#6E6E6E", marginTop: 2 }}>{opt.subtitle}</Text>
               ) : null}
             </View>
+
+            {/* {
+              (value == "upi" || value == "card") &&
+              <View className="relative flex-row items-center w-[100%]">
+                <TextInput
+                  placeholder={`Enter ${value} details`}
+                  style={{ height: 42 }}
+                  className="rounded-xl bg-[#F6D3D3]/[0.6] pl-7 text-black text-lg w-full"
+                  placeholderTextColor={'#0000008a'} />
+              </View>
+            } */}
 
             {/* Optional chevron or check */}
             {selected ? <Ionicons name="checkmark" size={18} color="red" /> : null}
