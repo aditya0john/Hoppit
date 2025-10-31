@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function SearchPage() {
 
-    let [address, setAddress] = useState({ main: "Search", subroute: "enter your address here" })
+    let [address, setAddress] = useState({ main: "Vikasnagar", subroute: "Mandi Chowk, near kotwali" })
     let [searchPrompt, setSearchPrompt] = useState("");
 
     return (
@@ -21,7 +21,7 @@ export default function SearchPage() {
                     <View className='flex-row items-center'>
                         <Image source={require("../assets/images/location.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-10 w-10' />
                         <TextInput
-                            placeholder={`${address.main}, ${address.subroute}`}
+                            placeholder={`${address.main} - ${address.subroute}`}
                             placeholderTextColor={"#888"}
                             className='text-md w-full h-full'>
                         </TextInput>

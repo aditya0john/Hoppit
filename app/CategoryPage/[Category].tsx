@@ -1,37 +1,55 @@
 import { categories, products } from '@/lib/data';
-import { StoreItem } from '@/lib/schema';
+import { GroceryItem } from '@/lib/schema';
+import { supabase } from '@/lib/supabaseClient';
 import { useCartStore } from '@/store/useCartStore';
 import { useWishList } from '@/store/useWishList';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from "expo-haptics";
-import { router, useLocalSearchParams } from 'expo-router';
-import React, { useState } from 'react';
+import { useLocalSearchParams } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native';
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 function CategoryPage() {
-    const { id } = useLocalSearchParams<{ id?: string }>(); // e.g., ?category=fruits
-
-    let [selectedCat, setSelectedCat] = useState(id);
-
-    const categoryProducts: StoreItem[] =
-        selectedCat && selectedCat in products ? products[selectedCat as keyof typeof products] : [];
-
     const screenWidth = Dimensions.get('window').width;
     const numColumns = 4;
     const itemSpacing = 10;
     const itemWidth = (screenWidth - (numColumns + 1) * itemSpacing) / numColumns;
 
+    const { id } = useLocalSearchParams<{ id?: string }>();
+
+    let [selectedCat, setSelectedCat] = useState(id);
+
     let { addItem, cartItems, increaseQty, decreaseQty } = useCartStore();
     let { addFav, wishList } = useWishList();
 
-    function handleCart(data: StoreItem) {
+    const [GroceryData, setGroceryData] = useState<GroceryItem[]>([]);
+
+    useEffect(() => {
+        const fetchGroceries = async () => {
+            const { data, error } = await supabase
+                .from('grocery')
+                .select('*')
+                .eq("category", selectedCat);
+                
+            if (error) {
+                console.error(error)
+            } else {
+                setGroceryData(data)
+            }
+        }
+
+        fetchGroceries();
+    }, [selectedCat])
+
+
+    function handleCart(data: GroceryItem) {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
         addItem(data);
     }
 
-    function handleFav(data: StoreItem) {
+    function handleFav(data: GroceryItem) {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         addFav(data);
     }
@@ -86,18 +104,18 @@ function CategoryPage() {
                                 justifyContent: 'flex-start',
                                 marginLeft: 1
                             }}>
-                            {categoryProducts.length === 0 ?
+                            {GroceryData.length === 0 ?
                                 <View className="flex-1 items-center justify-center bg-[#FFF]">
                                     <Text className="text-gray-300 font-bold text-lg">No products found</Text>
                                 </View>
                                 :
-                                categoryProducts.map((data, index) => {
-                                    const cartItem = cartItems.find((i) => i.name === data.name);
-                                    const wishListItem = wishList.find((i) => i.name === data.name);
+                                GroceryData.map((data, index) => {
+                                    const cartItem = cartItems.find((i) => i.itemName === data.itemName);
+                                    const wishListItem = wishList.find((i) => i.itemName === data.itemName);
 
                                     return (
                                         <View
-                                            key={`${index}-${data.id}`}
+                                            key={`${index}-${data.itemName}`}
                                             style={{ width: itemWidth, margin: 2 }}
                                             className="h-44 items-center rounded-xl bg-[#F6D3D3]/[0.2] relative">
                                             <TouchableOpacity onPress={() => handleFav(data)} className='absolute top-1 right-1 z-50'>
@@ -110,21 +128,18 @@ function CategoryPage() {
                                                 width={40}
                                                 resizeMode='cover'
                                                 className='h-20 w-full rounded-t-xl' />
-                                            <Text className="text-lg font-bold capitalize text-black/[0.6]">{data.name}</Text>
+                                            <Text className="text-xs font-bold capitalize text-black/[0.6]">{data.itemName}</Text>
+                                            <Text className="text-xs font-bold capitalize text-black/[0.4]">{data.brand}</Text>
                                             <Text className="text-xs font-bold capitalize text-yellow-600">Rs {data.price}</Text>
-                                            <View className='flex-row items-center'>
-                                                <Ionicons name='time-outline' color={"red"} size={12} />
-                                                <Text className="text-xs font-bold capitalize text-black/[0.6]">{data.time}</Text>
-                                            </View>
                                             {cartItem ?
                                                 <View className='flex-row items-center justify-center gap-1 bg-red-200 rounded-xl px-1'>
-                                                    <TouchableOpacity onPress={() => decreaseQty(data.name)} className='mt-1 flex-row items-center justify-center'>
+                                                    <TouchableOpacity onPress={() => decreaseQty(data.itemName)} className='mt-1 flex-row items-center justify-center'>
                                                         <Ionicons name='remove' size={14} color={"red"} />
                                                     </TouchableOpacity>
 
                                                     <Text className='text-black/[0.6] text-lg'>{cartItem.quantity}</Text>
 
-                                                    <TouchableOpacity onPress={() => increaseQty(data.name)} className='mt-1 flex-row items-center justify-center'>
+                                                    <TouchableOpacity onPress={() => increaseQty(data.itemName)} className='mt-1 flex-row items-center justify-center'>
                                                         <Ionicons name='add' size={14} color={"red"} />
                                                     </TouchableOpacity>
                                                 </View>

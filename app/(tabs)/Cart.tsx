@@ -20,6 +20,15 @@ export default function Cart() {
         { key: "cod", label: "Cash on delivery", subtitle: "Pay at delivery", icon: "wallet" },
     ] as const;
 
+    const BillCharges = [
+        { icon: "cash-outline", label: "items Total", amount: totalPrice },
+        { icon: "bicycle", label: "Delivery Charges", amount: 14 },
+        { icon: "bag-outline", label: "handling Charges", amount: 7 },
+        { icon: "pricetag-outline", label: "Offers and Discount", amount: -7 },
+        { icon: "thunderstorm-outline", label: "Surge Charges", amount: 0 },
+        { icon: "rainy-outline", label: "Discount", amount: 14 },
+    ]
+
     const [method, setMethod] = useState<PaymentKey | null>("upi");
 
 
@@ -40,11 +49,11 @@ export default function Cart() {
 
                             <View className='w-full flex-row justify-between bg-[#F6D3D3]/[0.6] p-4 rounded-2xl'>
                                 <View className='flex-row gap-2'>
-                                    <Ionicons name='time-outline' color={"red"} size={30} />
+                                    <Ionicons name='bicycle-outline' color={"red"} size={30} />
                                     <Text className='text-2xl text-red-500 font-semibold'>Delivery Time</Text>
                                 </View>
                                 <View className='flex-row items-center'>
-                                    <Text className="text-xl font-bold capitalize text-red-500">10-15 mins</Text>
+                                    <Text className="text-xl font-bold capitalize text-red-500">7-10 mins</Text>
                                 </View>
                             </View>
 
@@ -60,54 +69,21 @@ export default function Cart() {
                                 <Text className='text-2xl font-bold'>Bill details</Text>
 
                                 <View className='gap-1'>
-                                    <View className='flex-row px-2 justify-between'>
-                                        <View className='flex-row gap-2'>
-                                            <Ionicons name='cash' size={20} color={"darkgray"} />
-                                            <Text className='text-md capitalize'>items Total</Text>
+                                    {BillCharges.map((charge, i) => (
+                                        <View key={i} className='flex-row px-2 justify-between'>
+                                            <View className='flex-row gap-2'>
+                                                <Ionicons name={charge.icon} size={20} color={"gray"} />
+                                                <Text className='text-md text-neutral-600 capitalize'>{charge.label}</Text>
+                                            </View>
+                                            <Text className='text-neutral-600'>{charge.amount == 0 ? "--" : `Rs ${charge.amount}`}</Text>
                                         </View>
-                                        <Text className='text-black/[0.6]'>Rs {totalPrice}</Text>
-                                    </View>
-                                    <View className='flex-row px-2 justify-between'>
-                                        <View className='flex-row gap-2'>
-                                            <Ionicons name='bicycle' size={20} color={"darkgray"} />
-                                            <Text className='text-md capitalize'>Delivery Charges</Text>
-                                        </View>
-                                        <Text className='text-black/[0.6]'>Rs 14</Text>
-                                    </View>
-                                    <View className='flex-row px-2 justify-between'>
-                                        <View className='flex-row gap-2'>
-                                            <Ionicons name='bag' size={20} color={"darkgray"} />
-                                            <Text className='text-md capitalize'>handling Charges</Text>
-                                        </View>
-                                        <Text className='text-black/[0.6]'>Rs 7</Text>
-                                    </View>
-                                    <View className='flex-row px-2 justify-between'>
-                                        <View className='flex-row gap-2'>
-                                            <Ionicons name='pricetag' size={20} color={"darkgray"} />
-                                            <Text className='text-md capitalize'>Offers and Discount</Text>
-                                        </View>
-                                        <Text className='text-black/[0.6]'>Rs 7</Text>
-                                    </View>
-                                    <View className='flex-row px-2 justify-between'>
-                                        <View className='flex-row gap-2'>
-                                            <Ionicons name='thunderstorm' size={20} color={"darkgray"} />
-                                            <Text className='text-md capitalize'>Surge Charges</Text>
-                                        </View>
-                                        <Text className='text-black/[0.6]'>--</Text>
-                                    </View>
-                                    <View className='flex-row px-2 justify-between'>
-                                        <View className='flex-row gap-2'>
-                                            <Ionicons name='rainy' size={20} color={"darkgray"} />
-                                            <Text className='text-md capitalize'>Discount</Text>
-                                        </View>
-                                        <Text className='text-black/[0.6]'>Rs 14</Text>
-                                    </View>
+                                    ))}
                                 </View>
 
                                 <View className='h-0 w-full border border-black/[0.2]' />
 
                                 <View className='flex-row justify-between px-2'>
-                                    <Text className='text-2xl text-black/[0.6] font-bold capitalize'>Grand Total</Text>
+                                    <Text className='text-2xl text-neutral-600 font-bold capitalize'>Grand Total</Text>
                                     <Text className='text-2xl text-red-500 font-bold'>Rs {totalPrice + 14}</Text>
                                 </View>
                             </View>
@@ -116,8 +92,8 @@ export default function Cart() {
                                 <Text className='text-2xl font-bold'>Delivery Address</Text>
                                 <View className='flex-row justify-between items-center'>
                                     <View>
-                                        <Text className='text-lg text-black/[0.8] font-bold capitalize'>Vikasnagar</Text>
-                                        <Text className='text-xs text-black/[0.6] capitalize'>mandi chowk, near kotwali</Text>
+                                        <Text className='text-lg text-neutral-600 font-bold capitalize'>Vikasnagar</Text>
+                                        <Text className='text-xs text-neutral-600 tracking-tight capitalize'>mandi chowk, near kotwali</Text>
                                     </View>
                                     <Text className='text-xs text-blue-600 capitalize'>change address</Text>
                                 </View>

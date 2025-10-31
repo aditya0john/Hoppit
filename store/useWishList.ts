@@ -1,9 +1,9 @@
-import { StoreItem } from "@/lib/schema";
+import { GroceryItem, StoreItem } from "@/lib/schema";
 import { create } from "zustand";
 
 type WishList = {
-  wishList: StoreItem[];
-  addFav: (item: StoreItem) => void;
+  wishList: GroceryItem[];
+  addFav: (item: GroceryItem) => void;
   removeFav: (name: string) => void;
 };
 
@@ -12,13 +12,13 @@ export const useWishList = create<WishList>((set) => ({
 
   addFav: (item) =>
     set((state) =>
-      state.wishList.find((i) => i.name === item.name)
-        ? { wishList: state.wishList.filter((i) => i.name !== item.name) }
+      state.wishList.find((i) => i.itemName === item.itemName)
+        ? { wishList: state.wishList.filter((i) => i.itemName !== item.itemName) }
         : { wishList: [...state.wishList, item] }
     ),
 
   removeFav: (name) =>
     set((state) => ({
-      wishList: state.wishList.filter((item) => item.name !== name),
+      wishList: state.wishList.filter((item) => item.itemName !== name),
     })),
 }));

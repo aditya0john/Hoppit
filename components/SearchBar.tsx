@@ -53,7 +53,7 @@ export default function SearchBar() {
         color={'red'}
         className="absolute left-2"
       />
-      <Text className='text-xs text-black/[0.6]'>Hoppit your
+      <Text className='text-xs text-black/[0.6]'>Search for
         <Animated.Text
           style={{
             opacity: fadeAnim,

@@ -1,4 +1,4 @@
-import { StoreItem } from '@/lib/schema';
+import { GroceryItem } from '@/lib/schema';
 import { useCartStore } from '@/store/useCartStore';
 import { useWishList } from '@/store/useWishList';
 import { Ionicons } from '@expo/vector-icons';
@@ -6,8 +6,7 @@ import * as Haptics from "expo-haptics";
 import React from 'react';
 import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native';
 
-
-export default function WishListItem({ products, category }: { products: StoreItem[], category: string }) {
+export default function WishListItem({ products, category }: { products: GroceryItem[], category: string }) {
   const screenWidth = Dimensions.get('window').width;
   const numColumns = 3;
   const itemSpacing = 8;
@@ -16,7 +15,7 @@ export default function WishListItem({ products, category }: { products: StoreIt
   let { addItem, cartItems, increaseQty, decreaseQty } = useCartStore();
   let { removeFav } = useWishList();
 
-  function handleCart(data: StoreItem) {
+  function handleCart(data: GroceryItem) {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
     addItem(data);
   }
@@ -25,6 +24,7 @@ export default function WishListItem({ products, category }: { products: StoreIt
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     removeFav(data);
   }
+
 
   return (
     <View className="flex items-center justify-center">
@@ -42,11 +42,11 @@ export default function WishListItem({ products, category }: { products: StoreIt
             justifyContent: 'flex-start',
           }}>
           {products.map((data) => {
-            const cartItem = cartItems.find((i) => i.name === data.name);
+            const cartItem = cartItems.find((i) => i.itemName === data.itemName);
 
             return (
-              <View key={data.id} className="flex flex-col items-center justify-center relative">
-                <TouchableOpacity onPress={() => handleFav(data.name)} className='absolute top-1 right-1 z-50'>
+              <View key={data.itemId} className="flex flex-col items-center justify-center relative">
+                <TouchableOpacity onPress={() => handleFav(data.itemName)} className='absolute top-1 right-1 z-50'>
                   <Ionicons name='heart' size={20} color={"red"} />
                 </TouchableOpacity>
                 <View
@@ -59,21 +59,18 @@ export default function WishListItem({ products, category }: { products: StoreIt
                     width={40}
                     resizeMode='contain'
                     className='h-20 w-full rounded-t-xl' />
-                  <Text className="text-lg font-bold capitalize text-black/[0.6]">{data.name}</Text>
+                  <Text className="text-xs font-bold capitalize text-black/[0.6]">{data.itemName}</Text>
+                  <Text className="text-xs font-bold capitalize text-black/[0.4]">{data.brand}</Text>
                   <Text className="text-xs font-bold capitalize text-yellow-600">Rs {data.price}</Text>
-                  <View className='flex-row items-center'>
-                    <Ionicons name='time-outline' color={"red"} size={12} />
-                    <Text className="text-xs font-bold capitalize text-black/[0.6]">{data.time}</Text>
-                  </View>
                   {cartItem ?
                     <View className='flex-row items-center justify-center gap-1 bg-red-200 rounded-xl px-1'>
-                      <TouchableOpacity onPress={() => decreaseQty(data.name)} className='mt-1 flex-row items-center justify-center'>
+                      <TouchableOpacity onPress={() => decreaseQty(data.itemName)} className='mt-1 flex-row items-center justify-center'>
                         <Ionicons name='remove' size={14} color={"red"} />
                       </TouchableOpacity>
 
                       <Text className='text-black/[0.6] text-xl'>{cartItem.quantity}</Text>
 
-                      <TouchableOpacity onPress={() => increaseQty(data.name)} className='mt-1 flex-row items-center justify-center'>
+                      <TouchableOpacity onPress={() => increaseQty(data.itemName)} className='mt-1 flex-row items-center justify-center'>
                         <Ionicons name='add' size={14} color={"red"} />
                       </TouchableOpacity>
                     </View>

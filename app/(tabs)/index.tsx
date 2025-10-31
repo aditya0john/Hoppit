@@ -1,13 +1,16 @@
 import CategoryCarousel from '@/components/CategoryCarousel';
 import FoodItem from '@/components/FoodItem';
+import GroceryComponent from '@/components/GroceryComponent';
 import SearchBar from '@/components/SearchBar';
 import WishListItem from '@/components/WishListItem';
 import { products } from '@/lib/data';
+import { GroceryItem } from '@/lib/schema';
+import { supabase } from '@/lib/supabaseClient';
 import { useWishList } from '@/store/useWishList';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { useState } from 'react';
-import { Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -25,6 +28,22 @@ const OngoingOrders = [{
 export default function Index() {
   const [showAllOrders, setShowAllOrders] = useState(false);
   const { wishList } = useWishList(); //send this to zustand
+  const [GroceryData, setGroceryData] = useState<GroceryItem[]>([]);
+
+  useEffect(() => {
+    const fetchGroceries = async () => {
+      const { data, error } = await supabase.from('grocery').select('*')
+      if (error) {
+        console.error(error)
+      } else {
+        setGroceryData(data)
+      }
+    }
+
+    fetchGroceries()
+  }, [])
+
+
 
   return (
     <GestureHandlerRootView>
@@ -32,7 +51,6 @@ export default function Index() {
         <View className='flex-row justify-between items-end p-2'>
           <View className='flex-row'>
             <Image source={require("../../assets/images/LOGO2.png")} alt='Hoppit-LOGO' height={20} width={40} resizeMode="contain" className='h-20 w-20' />
-
             <View className='flex-col items-start justify-end mb-2'>
               <View className='flex-row items-end'>
                 <Text className='text-3xl text-[#FFBD00] font-bold'>Hoppit</Text>
@@ -55,7 +73,7 @@ export default function Index() {
         </View>
 
         <ScrollView>
-          <View className='flex-row items-center gap-2 mt-2 w-full '>
+          <View className='flex-row items-center gap-2 mt-2 w-full'>
             <TouchableOpacity
               onPress={() => router.push("/SearchPage")}
               activeOpacity={0.8}
@@ -73,11 +91,14 @@ export default function Index() {
             <SearchBar />
           </View>
 
-          <CategoryCarousel />
+          <CategoryCarousel products={GroceryData} />
 
           {wishList.length > 0 && <WishListItem category='your wishlist' products={wishList} />}
 
-          <FoodItem products={products.fruits} category='Most Ordered' />
+          <GroceryComponent products={products.fruits} category='Most Ordered' />
+
+          {GroceryData.length > 0 ? <GroceryComponent products={GroceryData} category='Groceries' /> : <ActivityIndicator size="large" color="#000" />}
+
         </ScrollView>
 
 

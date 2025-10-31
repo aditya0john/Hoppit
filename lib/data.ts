@@ -1,63 +1,33 @@
-import { CategorySchema, SettingItem, StoreItem } from './schema';
+import { CategorySchema, GroceryItem, SettingItem } from './schema';
 
 // categories.js
 export const categories: CategorySchema[] = [
-  { id: 'fruits', name: 'Fruits', image: require('../assets/images/categories/Fruits.png') },
-  {
-    id: 'vegetables',
-    name: 'Vegetables',
-    image: require('../assets/images/categories/Vegetables.png'),
-  },
-  { id: 'dairy', name: 'Dairy', image: require('../assets/images/categories/Dairy.png') },
+  { id: 'Fruits', name: 'Fruits', image: require('../assets/images/categories/Fruits.png') },
+  { id: 'Vegetables', name: 'Vegetables', image: require('../assets/images/categories/Vegetables.png'), },
+  { id: 'Dairy', name: 'Dairy', image: require('../assets/images/categories/Dairy.png') },
   { id: 'Namkeen', name: 'Namkeen', image: require('../assets/images/categories/Snacks.png') },
   { id: 'Snacks', name: 'Snacks', image: require('../assets/images/categories/Chips.png') },
-  { id: 'sweets', name: 'Sweets', image: require('../assets/images/categories/Sweets.png') },
-  {
-    id: 'beverages',
-    name: 'Beverages',
-    image: require('../assets/images/categories/Beverages.png'),
-  },
-  { id: 'bakery', name: 'Bakery', image: require('../assets/images/categories/bakery.png') },
+  { id: 'Desserts', name: 'Desserts', image: require('../assets/images/categories/Sweets.png') },
+  { id: 'Beverages', name: 'Beverages', image: require('../assets/images/categories/Beverages.png'), },
+  { id: 'Meat', name: 'Meat', image: require('../assets/images/categories/bakery.png') },
+  { id: 'Condiments', name: 'Condiments', image: require('../assets/images/categories/bakery.png') },
+  { id: 'Spreads', name: 'Spreads', image: require('../assets/images/categories/bakery.png') },
 ];
 
-
-// const BASE_URL = '../assets/images/categories/';
-
-// export const categories: CategorySchema[] = [
-//   { id: 'cat001', name: 'Fruits & Vegetables', image: require(`${BASE_URL}fruits_vegetables.png`) },
-//   { id: 'cat002', name: 'Dairy & Breakfast', image: require(`${BASE_URL}dairy_breakfast.png`) },
-//   { id: 'cat003', name: 'Atta, Rice & Dal', image: require(`${BASE_URL}atta_rice_dal.png`) },
-//   { id: 'cat004', name: 'Oil, Masala & Salt', image: require(`${BASE_URL}oil_masala_salt.png`) },
-//   { id: 'cat005', name: 'Snacks & Munchies', image: require(`${BASE_URL}snacks_munchies.png`) },
-//   { id: 'cat006', name: 'Biscuits & Bakery', image: require(`${BASE_URL}biscuits_bakery.png`) },
-//   { id: 'cat007', name: 'Beverages', image: require(`${BASE_URL}beverages.png`) },
-//   { id: 'cat008', name: 'Instant & Frozen Food', image: require(`${BASE_URL}instant_frozen.png`) },
-//   { id: 'cat009', name: 'Sweet Cravings', image: require(`${BASE_URL}sweet_cravings.png`) },
-//   { id: 'cat010', name: 'Baby Care', image: require(`${BASE_URL}baby_care.png`) },
-//   { id: 'cat011', name: 'Home & Cleaning', image: require(`${BASE_URL}home_cleaning.png`) },
-//   { id: 'cat012', name: 'Personal Care', image: require(`${BASE_URL}personal_care.png`) },
-//   { id: 'cat013', name: 'Pet Care', image: require(`${BASE_URL}pet_care.png`) },
-//   { id: 'cat014', name: 'Stationery & Office', image: require(`${BASE_URL}stationery_office.png`) },
-//   { id: 'cat015', name: 'Pooja Needs', image: require(`${BASE_URL}pooja_needs.png`) },
-//   { id: 'cat016', name: 'Local Specialties', image: require(`${BASE_URL}local_specials.png`) },
-//   { id: 'cat017', name: 'Pharma & Wellness', image: require(`${BASE_URL}pharma_wellness.png`) },
-//   { id: 'cat018', name: 'Electronics & Accessories', image: require(`${BASE_URL}electronics_accessories.png`) },
-//   { id: 'cat019', name: 'Festive Essentials', image: require(`${BASE_URL}festive_essentials.png`) },
-//   { id: 'cat020', name: 'Deals & Combos', image: require(`${BASE_URL}deals_combos.png`) },
-// ];
 
 export const stores = [
-  { id: '1', name: 'Store 1', image: require('../assets/images/categories/Sweets.png') },
-  { id: '2', name: 'Store 2', image: require('../assets/images/categories/Sweets.png') },
-  { id: '3', name: 'Store 3', image: require('../assets/images/categories/Sweets.png') },
-  { id: '4', name: 'Store 4', image: require('../assets/images/categories/Sweets.png') },
+  { itemId: '1', itemName: 'Store 1', image: require('../assets/images/categories/Sweets.png') },
+  { itemId: '2', itemName: 'Store 2', image: require('../assets/images/categories/Sweets.png') },
+  { itemId: '3', itemName: 'Store 3', image: require('../assets/images/categories/Sweets.png') },
+  { itemId: '4', itemName: 'Store 4', image: require('../assets/images/categories/Sweets.png') },
 ];
 
-export const mostOrdered: Record<string, StoreItem[]> = {
+export const mostOrdered: Record<string, GroceryItem[]> = {
   items: [
     {
-      id: 'apple',
-      name: 'Apple',
+      itemId: 'apple',
+      brand: "hoppit",
+      itemName: 'Apple',
       image: require('../assets/images/categories/Fruits/apple.png'),
       rating: 4.5,
       quantity: 1,
@@ -67,8 +37,9 @@ export const mostOrdered: Record<string, StoreItem[]> = {
       tags: ['fresh', 'organic'],
     },
     {
-      id: 'pineapple',
-      name: 'pineapple',
+      itemId: 'pineapple',
+      brand: "hoppit",
+      itemName: 'pineapple',
       image: require('../assets/images/categories/Fruits/pineapple.png'),
       rating: 4.5,
       quantity: 1,
@@ -78,8 +49,9 @@ export const mostOrdered: Record<string, StoreItem[]> = {
       tags: ['fresh'],
     },
     {
-      id: 'guava',
-      name: 'guava',
+      itemId: 'guava',
+      brand: "hoppit",
+      itemName: 'guava',
       image: require('../assets/images/categories/Fruits/guava.png'),
       rating: 4.5,
       quantity: 1,
@@ -89,8 +61,9 @@ export const mostOrdered: Record<string, StoreItem[]> = {
       tags: ['fresh'],
     },
     {
-      id: 'potato',
-      name: 'Potato',
+      itemId: 'potato',
+      brand: "hoppit",
+      itemName: 'Potato',
       image: require('../assets/images/categories/Vegetables/potato.png'),
       rating: 4.5,
       quantity: 1,
@@ -100,8 +73,9 @@ export const mostOrdered: Record<string, StoreItem[]> = {
       tags: ['fresh'],
     },
     {
-      id: 'spinach',
-      name: 'Spinach',
+      itemId: 'spinach',
+      brand: "hoppit",
+      itemName: 'Spinach',
       price: 40,
       per: "Gatthi",
       image: require('../assets/images/categories/Vegetables/spinach.png'),
@@ -114,11 +88,12 @@ export const mostOrdered: Record<string, StoreItem[]> = {
   ]
 }
 
-export const products: Record<string, StoreItem[]> = {
+export const products: Record<string, GroceryItem[]> = {
   fruits: [
     {
-      id: 'apple',
-      name: 'Apple',
+      itemId: 'apple',
+      brand: "hoppit",
+      itemName: 'Apple',
       image: require('../assets/images/categories/Fruits/apple.png'),
       rating: 4.5,
       quantity: 1,
@@ -128,20 +103,21 @@ export const products: Record<string, StoreItem[]> = {
       tags: ['fresh', 'organic'],
     },
     {
-      id: 'banana',
-      name: 'Banana',
+      itemId: 'banana',
+      brand: "hoppit",
+      itemName: 'Banana',
       image: require('../assets/images/categories/Fruits/banana.png'),
       rating: 4.5,
       quantity: 1,
       time: '10-15 min',
       price: 60,
       per: "Dozen",
-
       tags: ['fresh'],
     },
     {
-      id: 'mango',
-      name: 'mango',
+      itemId: 'mango',
+      brand: "hoppit",
+      itemName: 'mango',
       image: require('../assets/images/categories/Fruits/mango.png'),
       rating: 4.5,
       quantity: 1,
@@ -151,8 +127,9 @@ export const products: Record<string, StoreItem[]> = {
       tags: ['fresh', 'seasonal'],
     },
     {
-      id: 'pineapple',
-      name: 'pineapple',
+      itemId: 'pineapple',
+      brand: "hoppit",
+      itemName: 'pineapple',
       image: require('../assets/images/categories/Fruits/pineapple.png'),
       rating: 4.5,
       quantity: 1,
@@ -162,8 +139,9 @@ export const products: Record<string, StoreItem[]> = {
       tags: ['fresh'],
     },
     {
-      id: 'kiwi',
-      name: 'kiwi',
+      itemId: 'kiwi',
+      brand: "hoppit",
+      itemName: 'kiwi',
       image: require('../assets/images/categories/Fruits/kiwi.png'),
       rating: 4.5,
       quantity: 1,
@@ -173,8 +151,9 @@ export const products: Record<string, StoreItem[]> = {
       tags: ['fresh', 'exotic'],
     },
     {
-      id: 'guava',
-      name: 'guava',
+      itemId: 'guava',
+      brand: "hoppit",
+      itemName: 'guava',
       image: require('../assets/images/categories/Fruits/guava.png'),
       rating: 4.5,
       quantity: 1,
@@ -186,8 +165,9 @@ export const products: Record<string, StoreItem[]> = {
   ],
   vegetables: [
     {
-      id: 'carrot',
-      name: 'Carrot',
+      itemId: 'carrot',
+      brand: "hoppit",
+      itemName: 'Carrot',
       image: require('../assets/images/categories/Vegetables/carrot.png'),
       price: 60,
       rating: 4.5,
@@ -197,8 +177,9 @@ export const products: Record<string, StoreItem[]> = {
       tags: ['fresh', 'organic'],
     },
     {
-      id: 'potato',
-      name: 'Potato',
+      itemId: 'potato',
+      brand: "hoppit",
+      itemName: 'Potato',
       image: require('../assets/images/categories/Vegetables/potato.png'),
       rating: 4.5,
       quantity: 1,
@@ -208,8 +189,9 @@ export const products: Record<string, StoreItem[]> = {
       tags: ['fresh'],
     },
     {
-      id: 'broccoli',
-      name: 'Broccoli',
+      itemId: 'broccoli',
+      brand: "hoppit",
+      itemName: 'Broccoli',
       image: require('../assets/images/categories/Vegetables/broccoli.png'),
       rating: 4.5,
       quantity: 1,
@@ -219,8 +201,9 @@ export const products: Record<string, StoreItem[]> = {
       tags: ['fresh', 'organic'],
     },
     {
-      id: 'spinach',
-      name: 'Spinach',
+      itemId: 'spinach',
+      brand: "hoppit",
+      itemName: 'Spinach',
       price: 40,
       per: "Gatthi",
       image: require('../assets/images/categories/Vegetables/spinach.png'),
@@ -230,8 +213,9 @@ export const products: Record<string, StoreItem[]> = {
       tags: ['fresh', 'leafy'],
     },
     {
-      id: 'cabbage',
-      name: 'Cabbage',
+      itemId: 'cabbage',
+      brand: "hoppit",
+      itemName: 'Cabbage',
       price: 60,
       per: "kg",
       image: require('../assets/images/categories/Vegetables/cabbage.png'),
@@ -260,3 +244,4 @@ export const settingsData: { General: SettingItem[]; Account: SettingItem[] } = 
     },
   ],
 };
+

@@ -1,9 +1,9 @@
-import { StoreItem } from "@/lib/schema";
+import { GroceryItem, StoreItem } from "@/lib/schema";
 import { create } from "zustand";
 
 type CartStore = {
-  cartItems: StoreItem[];
-  addItem: (item: StoreItem) => void;
+  cartItems: GroceryItem[];
+  addItem: (item: GroceryItem) => void;
   increaseQty: (name: string) => void;
   decreaseQty: (name: string) => void;
   removeItem: (name: string) => void;
@@ -14,11 +14,11 @@ export const useCartStore = create<CartStore>((set) => ({
 
   addItem: (item) =>
     set((state) => {
-      const existing = state.cartItems.find((i) => i.name === item.name);
+      const existing = state.cartItems.find((i) => i.itemName === item.itemName);
       if (existing) {
         return {
           cartItems: state.cartItems.map((i) =>
-            i.name === item.name ? { ...i, quantity: i.quantity + 1 } : i
+            i.itemName === item.itemName ? { ...i, quantity: i.quantity + 1 } : i
           ),
         };
       } else {
@@ -29,7 +29,7 @@ export const useCartStore = create<CartStore>((set) => ({
   increaseQty: (name) =>
     set((state) => ({
       cartItems: state.cartItems.map((i) =>
-        i.name === name ? { ...i, quantity: i.quantity + 1 } : i
+        i.itemName === name ? { ...i, quantity: i.quantity + 1 } : i
       ),
     })),
 
@@ -37,13 +37,13 @@ export const useCartStore = create<CartStore>((set) => ({
     set((state) => ({
       cartItems: state.cartItems
         .map((i) =>
-          i.name === name ? { ...i, quantity: i.quantity - 1 } : i
+          i.itemName === name ? { ...i, quantity: i.quantity - 1 } : i
         )
         .filter((i) => i.quantity > 0),
     })),
 
   removeItem: (name) =>
     set((state) => ({
-      cartItems: state.cartItems.filter((i) => i.name !== name),
+      cartItems: state.cartItems.filter((i) => i.itemName !== name),
     })),
 }));
