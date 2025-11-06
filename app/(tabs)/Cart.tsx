@@ -48,18 +48,20 @@ export default function Cart() {
                             <CartItem products={cartItems} />
 
                             <View className='w-full flex-row justify-between bg-[#F6D3D3]/[0.6] p-4 rounded-2xl'>
-                                <View className='flex-row gap-2'>
-                                    <Ionicons name='bicycle-outline' color={"red"} size={30} />
+                                <View className='flex-row gap-2 items-center'>
+                                    <Ionicons name='bicycle-outline' color={"red"} size={26} />
                                     <Text className='text-2xl text-red-500 font-semibold'>Delivery Time</Text>
                                 </View>
-                                <View className='flex-row items-center'>
+                                <View className='flex-row items-center gap-1'>
+                                    <Ionicons name='time-outline' color={"red"} size={22} />
                                     <Text className="text-xl font-bold capitalize text-red-500">7-10 mins</Text>
                                 </View>
                             </View>
 
+
                             <View className='w-full flex-row justify-between bg-neutral-200/[0.6] p-4 rounded-2xl'>
                                 <View className='flex-row gap-2'>
-                                    <Ionicons name='ticket-outline' size={30} color={"gray"} />
+                                    <Ionicons name='ticket-outline' size={26} color={"gray"} />
                                     <Text className='text-2xl text-black/[0.6] font-semibold'>Coupons</Text>
                                 </View>
                                 <Ionicons name='chevron-forward' size={30} color={"gray"} />

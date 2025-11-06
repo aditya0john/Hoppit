@@ -14,7 +14,7 @@ function CategoryCarousel() {
         contentContainerStyle={{
           alignItems: 'center',
           justifyContent: 'center',
-          gap: 10,
+          gap: 8,
           padding: 6,
         }}
         showsVerticalScrollIndicator={false}>
@@ -34,10 +34,11 @@ function CategoryCarousel() {
               alt="Category image"
               height={40}
               width={40}
-              className="h-20 w-20 rounded-full bg-[#F6D3D3]/[0.4] object-cover"
+              className="h-20 w-20 rounded-full bg-[#F6D3D3]/[0.4]"
               resizeMode="contain"
             />
-            <Text className="mt-2 text-center text-xs font-bold text-black/[0.6]">
+            
+            <Text className="mt-1 text-center text-xs font-semibold text-black/[0.6]">
               {data.name}
             </Text>
           </TouchableOpacity>

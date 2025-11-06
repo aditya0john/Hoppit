@@ -12,7 +12,7 @@ export default function Delivery() {
 
   const stages = ["Preparing", "Order Packed", "Hopping", "Delivered"];
   let [orderAccepted, setOrderAccepted] = useState(true);
-  let [stageReached, setStageReached] = useState(1);
+  let [stageReached, setStageReached] = useState(2);
 
   const mapRef = useRef<any>();
   const navigation = useNavigation();
@@ -78,67 +78,73 @@ export default function Delivery() {
         </MapView>
 
         <ScrollView className='bg-white rounded-t-3xl p-4'>
-          <View className={`flex-col items-center gap-2 p-2 rounded-2xl ${orderAccepted ? "bg-green-600 " : "bg-yellow-500"}`}>
-            {orderAccepted ? <View className='flex-col gap-4 items-center'>
-              <View className='flex-row items-center justify-between w-full px-2'>
-                <Text className='text-2xl text-white font-bold'>ON THE WAY</Text>
-                <View className='flex-row items-center border border-white px-1 rounded-xl'>
-                  <Ionicons name='time' size={20} color={"white"} />
-                  <Text className='text-lg text-white font-bold'>10 Min</Text>
+          <View className={`flex-col items-center gap-2 p-4 rounded-2xl ${orderAccepted ? "bg-green-600 " : "bg-yellow-500"}`}>
+            <View className='flex-row items-center gap-2 bg-white/[0.2] p-2 rounded-lg'>
+              <Image source={require("../assets/images/categories/Snacks.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-16 w-16 rounded-full' />
+              <View className='justify-center items-start w-[80%]'>
+                <Text className='text-white/[0.8] font-bold text-xs'>Order ID : 900273ASDJNH68</Text>
+                <Text className='text-white font-bold text-xl capitalize'>Snacks from Hoppit</Text>
+              </View>
+            </View>
+
+            {orderAccepted ?
+              <View className='flex-row gap-2'>
+                <View className='bg-white/[0.2] p-2 rounded-lg items-center gap-2 w-[50%]'>
+                  <Text className='text-2xl text-white font-bold'>ON THE WAY</Text>
+                  <Text className='w-full text-center text-md text-white/[0.8] font-bold'>On Time</Text>
+                </View>
+                <View className='bg-white/[0.2] p-2 rounded-lg items-center gap-2 w-[50%]'>
+                  <View className='flex-row items-center w-[60%] border border-white px-1 rounded-lg'>
+                    <Ionicons name='time' size={20} color={"white"} />
+                    <Text className='text-lg text-white font-bold'>10 Min</Text>
+                  </View>
+                  <Text className='w-full text-center text-md text-white/[0.8] font-bold'>Arriving by 9:40 AM</Text>
                 </View>
               </View>
-              <Text className='text-md text-white/[0.8] font-bold bg-white/[0.2] p-2 rounded-xl'>On time | arriving by 9:40 AM</Text>
-            </View>
               :
               <View>
                 <Text className='text-2xl text-white font-bold'>ORDER WAITING</Text>
-              </View>}
-          </View>
-
-          <View
-            className='flex-row items-center gap-2 mt-4'>
-            <Image source={require("../assets/images/categories/Snacks.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-16 w-16 rounded-full bg-black/[0.2]' />
-            <View className='flex-row justify-around items-center w-[80%] bg-neutral-200/[0.6] p-2 rounded-2xl'>
-              <View>
-                <Text className='text-black/[0.4] font-bold text-xs'>Order ID : 900273ASDJNH68</Text>
-                <Text className='text-red-400 font-bold text-xl capitalize w-full'>Snacks from Hoppit</Text>
               </View>
-              <View className='flex-row gap-4'>
-                <View className='w-0 border border-black/[0.2]' />
-                <Text className='text-black/[0.4] font-bold text-2xl'>+2</Text>
-              </View>
-            </View>
+            }
           </View>
 
           {
             orderAccepted && <View className='mb-10'>
-              <View className='flex-row justify-around mt-4 bg-neutral-200/[0.6] p-4 rounded-2xl'>
-                {stages.map((stage, i) => (
-                  <View key={i}>
-                    <View className='flex-col gap-2 items-center'>
-                      <Text className={`text-md font-bold ${stageReached >= i ? "text-red-400/[0.8]" : "text-red-400/[0.2]"} `}>{stage}</Text>
-                      <View className={`h-2 w-20 rounded-full ${stageReached >= i ? "bg-red-500" : "bg-red-500/[0.1]"}`} />
+              <View>
+                <View className='flex-row justify-around mt-4 bg-neutral-200/[0.6] p-4 rounded-2xl relative'>
+                  {stages.map((stage, i) => (
+                    <View key={i}>
+                      <View className='flex-col gap-2 items-center'>
+                        <Text className={`text-md font-bold ${stageReached >= i ? "text-green-600" : "text-green-400/[0.2]"} `}>{stage}</Text>
+                        <View className='flex-row items-center z-10'>
+                          <View className={`h-4 w-4 rounded-full ${stageReached >= i ? "bg-green-600" : "bg-green-500/[0.1]"}`} />
+                        </View>
+                      </View>
                     </View>
-                  </View>
-                ))}
+                  ))}
+                </View>
+                <View className='absolute bottom-5 w-full'>
+                  <View className='h-2 w-full bg-green-500/[0.1]' />
+                  <View className={`h-2 ${stageReached == 0 ? "w-[15%]" : stageReached == 1 ? "w-[40%]" : stageReached == 2 ? "w-[65%]" : "w-[85%]"} bg-green-600 absolute`} />
+                </View>
               </View>
 
+
               <View className='flex-col gap-2 my-4 bg-neutral-200/[0.6] p-2 rounded-2xl'>
-                <View
-                  className='flex-row items-center justify-between'>
+                <View className='flex-row items-center justify-between'>
                   <View className='flex-row items-center gap-2'>
                     <Image source={require("../assets/images/HoppitHero.png")} alt='Location' height={20} width={40} resizeMode="contain" className='h-14 w-14 rounded-full bg-white' />
                     <View>
                       <Text className='text-black/[0.4] font-bold text-xs capitalize'>your hoppit hero</Text>
-                      <Text className='text-red-400 font-bold text-xl capitalize w-full'>Dhananjay</Text>
+                      <Text className='text-red-400 font-bold text-xl capitalize w-full'>Mr. hoppit hero</Text>
                     </View>
                   </View>
                   <View className='flex-row gap-4'>
                     <TouchableOpacity
                       onPress={CallHoppitHero}
                       activeOpacity={0.6}
-                      className='bg-black/[0.1] p-1 rounded-full'>
-                      <Ionicons name='call' size={24} color={"#0000004a"} className='p-1' />
+                      className='bg-green-500/[0.1] p-1 rounded-full'>
+                      <Ionicons name='call' size={24} color={"green"} className='p-1' />
                     </TouchableOpacity>
                   </View>
                 </View>

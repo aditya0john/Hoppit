@@ -17,24 +17,24 @@ export default function CartItem({ products }: { products: GroceryItem[] }) {
         <View className="w-full gap-2 overflow-hidden bg-[#F6D3D3]/[0.6] rounded-2xl p-2">
             {products.map((data) => (
                 <View key={data.itemId} className="flex-row items-center justify-between">
-                    <View className='flex-row gap-2'>
+                    <View className='flex-row gap-2 w-[60%]'>
                         <Image
                             source={data.image}
                             alt="product image"
                             height={20}
                             width={40}
                             resizeMode='cover'
-                            className='h-14 w-14 rounded-2xl'
+                            className='h-14 w-14'
                         />
 
                         <View className='justify-center'>
-                            <Text className="text-xl font-bold capitalize text-black/[0.6]">{data.itemName}</Text>
+                            <Text className="text-md font-bold capitalize text-black/[0.6]" numberOfLines={1}>{data.itemName}</Text>
                             <Text className="text-xs font-bold capitalize text-yellow-600">Rs {data.price} / per quantity</Text>
                         </View>
                     </View>
-                    
+
                     <View className='flex-row justify-center items-center gap-6 px-2'>
-                        <View className='flex-row items-center justify-center gap-1 bg-red-300 rounded-xl p-1'>
+                        <View className='flex-row items-center justify-center gap-1 bg-red-200 rounded-lg p-1'>
                             <TouchableOpacity onPress={() => decreaseQty(data.itemName)} className='flex-row items-center justify-center'>
                                 <Ionicons name='remove' size={16} color={"red"} />
                             </TouchableOpacity>

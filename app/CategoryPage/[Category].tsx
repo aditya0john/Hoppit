@@ -32,7 +32,7 @@ function CategoryPage() {
                 .from('grocery')
                 .select('*')
                 .eq("category", selectedCat);
-                
+
             if (error) {
                 console.error(error)
             } else {
@@ -145,8 +145,8 @@ function CategoryPage() {
                                                 </View>
 
                                                 :
-                                                <TouchableOpacity onPress={() => handleCart(data)} className='flex-row bg-red-200 px-2 rounded-xl items-center mt-1'>
-                                                    <Text className='text-red-500'>+</Text><Ionicons name="cart" size={20} color={"red"} />
+                                                <TouchableOpacity onPress={() => handleCart(data)} className='flex-row bg-green-500/[0.1] p-1 rounded-lg items-center mt-1'>
+                                                    <Text className='text-green-600 font-bold'>ADD</Text><Ionicons name="cart-outline" size={20} color={"#369E59"} />
                                                 </TouchableOpacity>
                                             }
                                         </View>
