@@ -12,11 +12,15 @@ export default function GroceryComponent({ products, category = "" }: { products
   const itemWidth = (screenWidth - (numColumns + 1) * itemSpacing) / numColumns;
 
   let { cartItems, addItem, increaseQty, decreaseQty } = useCartStore();
-  let { addFav, wishList } = useWishList();
+  let { addFav, wishList, removeFav } = useWishList();
 
   function handleCart(data: any) {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
-    addItem(data);
+    if (wishList.find((i) => i.itemName === data.itemName)) {
+      addItem(data);
+      removeFav(data.itemName);
+    }
+
   }
   function handleFav(data: any) {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);

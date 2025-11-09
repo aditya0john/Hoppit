@@ -21,16 +21,16 @@ export default function WishListComp({ products }: { products: GroceryItem[] }) 
 
     return (
         <View className="flex-1">
-            <View className="mt-2 w-full rounded-xl">
+            <View className="mt-2 w-full rounded-xl ">
                 <View>
                     {products.map((data) => {
                         const wishListItem = wishList.find((i) => i.itemName === data.itemName);
                         const cartItem = cartItems.find((i) => i.itemName === data.itemName);
 
                         return (
-                            <View key={data.itemId} className="flex flex-col mt-2 items-start justify-start relative bg-white rounded-2xl">
+                            <View key={data.itemId} className="flex flex-col mt-2 items-start justify-start relative rounded-2xl">
 
-                                <View className="flex-row h-12 items-center justify-between w-full px-2">
+                                <View className="flex-row h-12 w-full items-center justify-between bg-[#F6D3D3]/[0.6] rounded-xl px-2">
                                     <View className='flex-row w-[70%]'>
                                         <Image
                                             source={data.image}

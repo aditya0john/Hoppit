@@ -61,7 +61,7 @@ export default function Cart() {
                             </View>
 
 
-                            <View className='flex-col gap-2 bg-neutral-200/[0.6] p-4 rounded-2xl w-full'>
+                            <View className='flex-col gap-2 bg-[#F6D3D3]/[0.4] p-4 rounded-2xl w-full'>
                                 <Text className='text-2xl font-bold'>Wishlist</Text>
                                 <WishListComp products={wishList} />
                             </View>
