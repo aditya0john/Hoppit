@@ -4,7 +4,7 @@ import useGrocerySearch from '@/store/useGrocerySearch'
 import { Ionicons } from '@expo/vector-icons'
 import React, { useState } from 'react'
 import { ActivityIndicator, Image, TextInput, TouchableOpacity, View } from 'react-native'
-import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler'
+import { ScrollView } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function SearchPage() {
@@ -19,7 +19,6 @@ export default function SearchPage() {
     }
 
     return (
-        <GestureHandlerRootView>
             <SafeAreaView className='flex-1 bg-[#FFF] p-2' edges={["left", "right"]}>
                 <View className='gap-4'>
                     {/* <GooglePlaces /> */}
@@ -70,7 +69,5 @@ export default function SearchPage() {
                     }
                 </ScrollView>
             </SafeAreaView>
-        </GestureHandlerRootView>
-
     )
 }

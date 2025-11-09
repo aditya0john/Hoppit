@@ -1,17 +1,19 @@
 import CartItem from '@/components/CartItem';
 import RadioGroup from '@/components/RadioGroup';
+import WishListComp from '@/components/WishListComp';
 import { useCartStore } from '@/store/useCartStore';
+import { useWishList } from '@/store/useWishList';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import { GestureHandlerRootView, TextInput } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 type PaymentKey = "upi" | "card" | "cod";
 
 export default function Cart() {
     let { cartItems } = useCartStore();
+    let { wishList } = useWishList();
     const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
     const options = [
@@ -33,7 +35,7 @@ export default function Cart() {
 
 
     return (
-        <GestureHandlerRootView>
+        <View className='flex-1'>
             <SafeAreaView
                 className={`flex-1 bg-[#FFF] p-2 items-center ${cartItems.length === 0 ? "justify-center" : "justify-start"}`}
                 edges={["left", "right"]}
@@ -58,6 +60,11 @@ export default function Cart() {
                                 </View>
                             </View>
 
+
+                            <View className='flex-col gap-2 bg-neutral-200/[0.6] p-4 rounded-2xl w-full'>
+                                <Text className='text-2xl font-bold'>Wishlist</Text>
+                                <WishListComp products={wishList} />
+                            </View>
 
                             <View className='w-full flex-row justify-between bg-neutral-200/[0.6] p-4 rounded-2xl'>
                                 <View className='flex-row gap-2'>
@@ -132,6 +139,6 @@ export default function Cart() {
                     </TouchableOpacity>
                 </View>
             }
-        </GestureHandlerRootView>
+        </View>
     );
 }

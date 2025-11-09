@@ -3,7 +3,7 @@ import * as Haptics from "expo-haptics";
 import { useNavigation } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import MapView, { Callout, Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -49,7 +49,6 @@ export default function Delivery() {
   }
 
   return (
-    <GestureHandlerRootView >
       <SafeAreaView className='flex-1 items-center' edges={["left", "right"]}>
         {/* <Image source={require("../assets/images/map.png")} height={10} width={20} className='w-screen h-[40%]' resizeMode='cover' /> */}
         <MapView
@@ -173,6 +172,5 @@ export default function Delivery() {
           }
         </ScrollView>
       </SafeAreaView>
-    </GestureHandlerRootView>
   );
 }

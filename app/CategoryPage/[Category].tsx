@@ -8,7 +8,7 @@ import * as Haptics from "expo-haptics";
 import { useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native';
-import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 function CategoryPage() {
@@ -56,7 +56,6 @@ function CategoryPage() {
 
 
     return (
-        <GestureHandlerRootView>
             <SafeAreaView className="flex-1 bg-[#FFF] p-2" edges={["left", "right"]}>
                 <View className='flex-row w-full gap-2'>
                     <View style={{ flex: 2 }}>
@@ -160,7 +159,6 @@ function CategoryPage() {
                     </View>
                 </View>
             </SafeAreaView>
-        </GestureHandlerRootView>
     )
 }
 
